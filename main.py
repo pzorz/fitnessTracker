@@ -88,12 +88,12 @@ def plotLifts(master):
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
-    liftsFile = input("Enter full path to file to read:")
+    # liftsFile = input("Enter full path to file to read:")
 
-    if liftsFile.endswith('.csv'):
-        data = readLiftData(liftsFile)
-        latestLiftDataReport(data)
+    # if liftsFile.endswith('.csv'):
+    data = readLiftData('inputData/History-Table 1.csv')
+    latestLiftDataReport(data)
         # master = processWeightedLifts(data)
         # plotLifts(master)
-    else:
-        print('File must be a CSV')
+    # else:
+    #     print('File must be a CSV')
