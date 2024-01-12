@@ -1,0 +1,166 @@
+Date,Lift,weight,Units,Num_Reps,Num_Sets,Duration,Body weight,Straps used
+12/20/23,TRX Rev Fly,,,12,3,,TRUE,FALSE
+12/20/23,Skull crushers,25,Lbs. ,12,1,,FALSE,FALSE
+12/20/23,Skull crushers,30,Lbs. ,12,2,,FALSE,FALSE
+12/20/23,Rev crunch,,,10,3,,TRUE,FALSE
+12/20/23,Wavy bar curl,50,Lbs. ,12,3,,FALSE,FALSE
+12/20/23,Tricep rope ext.,35,Lbs. ,12,3,,FALSE,FALSE
+12/20/23,Plank,,,,3,30s,TRUE,FALSE
+12/20/23,Lat. Raise,22.5,Lbs. ,12,3,,FALSE,FALSE
+12/20/23,Hammer curl,30,Lbs. ,10,3,,FALSE,FALSE
+12/20/23,Russian twists,,,,3,30s,TRUE,FALSE
+12/20/23,Mts ab crunch machine,55,Lbs. ,12,3,,FALSE,FALSE
+12/21/23,Split Squat,35,Lbs. ,10,3,,FALSE,FALSE
+12/21/23,Side Plank,,,,3,45s,TRUE,FALSE
+12/21/23,Trap Bar DL,185,Lbs. ,12,1,,FALSE,FALSE
+12/21/23,Trap Bar DL,185,Lbs. ,10,1,,FALSE,FALSE
+12/21/23,Trap Bar DL,205,Lbs. ,8,1,,FALSE,FALSE
+12/21/23,Stability Ball Plank,,,,3,30s,TRUE,FALSE
+12/21/23,Trap Bar DL,205,Lbs. ,6,1,,FALSE,FALSE
+12/21/23,Side bends,50,Lbs. ,12,3,,FALSE,FALSE
+12/21/23,SL RDL,40,Lbs. ,10,2,,FALSE,FALSE
+12/21/23,SL RDL,40,Lbs. ,12,1,,FALSE,FALSE
+12/21/23,Leg Ext,160,Lbs. ,10,3,,FALSE,FALSE
+12/21/23,Leg Curl,140,Lbs. ,10,3,,FALSE,FALSE
+12/22/23,OH Press DB Seated,40,Lbs. ,12,3,,FALSE,FALSE
+12/22/23,Paloff Press,30,Lbs. ,6,3,,FALSE,FALSE
+12/22/23,Pull up,,,10,3,,TRUE,FALSE
+12/22/23,Hanging knee raises,,,10,3,,TRUE,FALSE
+12/22/23,SA DB Press,50,Lbs. ,10,3,,FALSE,FALSE
+12/22/23,SA Cable Row,55,Lbs. ,12,3,,FALSE,FALSE
+12/22/23,Chest fly (incline Db),20,Lbs. ,12,1,,FALSE,FALSE
+12/22/23,Chest Supported Row,90,Lbs. ,10,1,,FALSE,FALSE
+12/22/23,Chest fly (incline Db),25,Lbs. ,12,2,,FALSE,FALSE
+12/22/23,Chest Supported Row,100,Lbs. ,10,2,,FALSE,FALSE
+12/26/23,Back Squats,185,Lbs. ,12,1,,FALSE,FALSE
+12/26/23,Paloff Press,,,8,3,,TRUE,FALSE
+12/26/23,Back Squats,205,Lbs. ,10,1,,FALSE,FALSE
+12/26/23,Back Squats,225,Lbs. ,10,1,,FALSE,FALSE
+12/26/23,RDL,185,Lbs. ,12,3,,FALSE,FALSE
+12/26/23,Leg lifts,,,12,3,,TRUE,FALSE
+12/26/23,Rev. Lunge,50,Lbs. ,8,3,,FALSE,FALSE
+12/26/23,Side Plank,,,,3,30s,TRUE,FALSE
+12/26/23,Lateral lunge,35,Lbs. ,10,3,,FALSE,FALSE
+12/26/23,Leg Curl,140,Lbs. ,12,3,,FALSE,FALSE
+12/27/23,Torso rotation,25,Lbs. ,10,3,,FALSE,FALSE
+12/27/23,Flat Db press,55,Lbs. ,12,1,,FALSE,FALSE
+12/27/23,Flat Db press,65,Lbs. ,10,1,,FALSE,FALSE
+12/27/23,Flat Db press,70,Lbs. ,8,1,,FALSE,FALSE
+12/27/23,Flat Db press,75,Lbs. ,6,1,,FALSE,FALSE
+12/27/23,KB bentover row,20,Kg.,10,3,,FALSE,FALSE
+12/27/23,Db incline press (alternating),45,Lbs. ,8,2,,FALSE,FALSE
+12/27/23,Db incline press (alternating),50,Lbs. ,8,1,,FALSE,FALSE
+12/27/23,Chest fly (incline Db),30,Lbs. ,12,1,,FALSE,FALSE
+12/27/23,SA Db row,80,Lbs. ,8,3,,FALSE,FALSE
+12/27/23,Chest fly (incline Db),35,Lbs. ,12,2,,FALSE,FALSE
+12/27/23,Ab rollout,,,10,3,,TRUE,FALSE
+12/27/23,Pushup,,,15,3,,TRUE,FALSE
+12/28/23,TRX Rev Fly,,,12,3,,FALSE,FALSE
+12/28/23,Skull crushers,30,Lbs. ,12,3,,FALSE,FALSE
+12/28/23,Rev crunch,,,10,3,,TRUE,FALSE
+12/28/23,Tricep rope ext.,37.5,Lbs. ,12,3,,FALSE,FALSE
+12/28/23,Wavy bar curl,60,Lbs. ,12,3,,FALSE,FALSE
+12/28/23,Plank,,,,3,30s,TRUE,FALSE
+12/28/23,Lat. Raise,22.5,Lbs. ,12,3,,FALSE,FALSE
+12/28/23,Hammer curl,30,Lbs. ,8,1,,FALSE,FALSE
+12/28/23,Hammer curl,30,Lbs. ,10,2,,FALSE,FALSE
+12/28/23,Mts ab crunch machine,55,Lbs. ,12,1,,FALSE,FALSE
+12/28/23,Mts ab crunch machine,65,Lbs. ,12,3,,FALSE,FALSE
+12/28/23,Russian twists,4,Lbs. ,,3,30s,FALSE,FALSE
+12/29/23,Side Plank,,,,3,45s,TRUE,FALSE
+12/29/23,Split Squat,40,Lbs. ,10,3,,FALSE,FALSE
+12/29/23,RDL,185,Lbs. ,12,1,,FALSE,TRUE
+12/29/23,Stability Ball Plank,,,,3,30s,TRUE,FALSE
+12/29/23,RDL,205,Lbs. ,10,1,,FALSE,TRUE
+12/29/23,RDL,205,Lbs. ,8,1,,FALSE,TRUE
+12/29/23,RDL,215,Lbs. ,6,1,,FALSE,TRUE
+12/29/23,SL RDL,50,Lbs. ,10,3,,FALSE,FALSE
+12/29/23,Side bends,50,Lbs. ,12,3,,FALSE,FALSE
+12/29/23,Leg Curl,135,Lbs. ,12,3,,FALSE,FALSE
+12/29/23,Leg Ext,135,Lbs. ,10,3,,FALSE,FALSE
+12/31/23,OH Press DB Seated,45,Lbs. ,12,1,,FALSE,FALSE
+12/31/23,OH Press DB Seated,50,Lbs. ,12,1,,FALSE,FALSE
+12/31/23,OH Press DB Seated,50,Lbs. ,10,1,,FALSE,FALSE
+12/31/23,Paloff Press,30,Lbs. ,6,1,,FALSE,FALSE
+12/31/23,Paloff Press,35,Lbs. ,6,2,,FALSE,FALSE
+12/31/23,Pull up,,,10,3,,TRUE,FALSE
+12/31/23,Leg lifts,,,10,3,,TRUE,FALSE
+12/31/23,SA DB Press,50,Lbs. ,10,3,,FALSE,FALSE
+12/31/23,SA Cable Row,55,Lbs. ,12,3,,FALSE,FALSE
+12/31/23,Chest fly (incline Db),35,Lbs. ,12,3,,FALSE,FALSE
+12/31/23,Chest Supported Row,90,Lbs. ,12,1,,FALSE,FALSE
+12/31/23,Chest Supported Row,100,Lbs. ,12,2,,FALSE,FALSE
+1/1/24,Rev. Lunge,50,Lbs. ,10,3,,FALSE,FALSE
+1/1/24,Side Plank,,,,3,45s,TRUE,FALSE
+1/1/24,Leg Curl,140,Lbs. ,12,3,,FALSE,FALSE
+1/1/24,Leg lifts,,,12,3,,TRUE,FALSE
+1/1/24,Back Squats,185,Lbs. ,12,1,,FALSE,FALSE
+1/1/24,Back Squats,205,Lbs. ,10,1,,FALSE,FALSE
+1/1/24,Back Squats,205,Lbs. ,8,1,,FALSE,FALSE
+1/1/24,Back Squats,225,Lbs. ,6,1,,FALSE,FALSE
+1/1/24,RDL,185,Lbs. ,12,1,,FALSE,TRUE
+1/1/24,RDL,205,Lbs. ,12,2,,FALSE,FALSE
+1/1/24,Paloff Press,35,Lbs. ,8,3,,FALSE,FALSE
+1/1/24,Lateral lunge,35,Lbs. ,10,3,,FALSE,FALSE
+1/2/24,Torso rotation,25,Lbs. ,10,3,,FALSE,FALSE
+1/2/24,Flat Db press,45,Lbs. ,12,1,,FALSE,FALSE
+1/2/24,Flat Db press,55,Lbs. ,10,1,,FALSE,FALSE
+1/2/24,Flat Db press,65,Lbs. ,8,1,,FALSE,FALSE
+1/2/24,Flat Db press,70,Lbs. ,6,1,,FALSE,FALSE
+1/2/24,KB bentover row,20,Kg.,10,3,,FALSE,FALSE
+1/2/24,Db incline press (alternating),45,Lbs. ,8,3,,FALSE,FALSE
+1/2/24,Chest fly (cable),30,Lbs. ,12,3,,FALSE,FALSE
+1/2/24,SA Db row,80,Lbs. ,9,3,,FALSE,FALSE
+1/2/24,Ab rollout,,,12,3,,TRUE,FALSE
+1/2/24,Pushup,,,15,2,,TRUE,FALSE
+1/2/24,Pushup,,,10,1,,TRUE,FALSE
+1/3/24,TRX Rev Fly,,,12,3,,TRUE,FALSE
+1/3/24,Skull crushers,30,Lbs. ,10,3,,FALSE,FALSE
+1/3/24,Rev crunch,,,10,3,,TRUE,FALSE
+1/3/24,Wavy bar curl,60,Lbs. ,12,3,,FALSE,FALSE
+1/3/24,Tricep rope ext.,42.5,Lbs. ,12,3,,FALSE,FALSE
+1/3/24,Plank,,,,3,45s,FALSE,FALSE
+1/3/24,Lat. Raise,25,Lbs. ,10,3,,FALSE,FALSE
+1/3/24,Hammer curl,30,Lbs. ,12,3,,FALSE,FALSE
+1/3/24,Mts ab crunch machine,60,Lbs. ,12,3,,FALSE,FALSE
+1/5/24,RDL,135,Lbs. ,12,1,,FALSE,FALSE
+1/5/24,RDL,185,Lbs. ,10,1,,FALSE,FALSE
+1/5/24,RDL,205,Lbs. ,8,1,,FALSE,FALSE
+1/5/24,Stability Ball Plank,,,,3,30s,TRUE,FALSE
+1/5/24,RDL,205,Lbs. ,6,1,,FALSE,FALSE
+1/5/24,Split Squat,45,Lbs. ,10,3,,FALSE,FALSE
+1/5/24,Side Plank,,,,3,45s,TRUE,FALSE
+1/5/24,SL RDL,50,Lbs. ,10,3,,FALSE,FALSE
+1/5/24,Side bends,50,Lbs. ,12,3,,FALSE,FALSE
+1/5/24,Leg Ext,135,Lbs. ,10,1,,FALSE,FALSE
+1/5/24,Leg Curl,140,Lbs. ,12,1,,FALSE,FALSE
+1/5/24,Leg Ext,140,Lbs. ,10,2,,FALSE,FALSE
+1/5/24,Leg Curl,140,Lbs. ,10,2,,FALSE,FALSE
+1/6/24,OH Press DB Seated,50,Lbs. ,12,3,,FALSE,FALSE
+1/6/24,Paloff Press,35,Lbs. ,6,3,,FALSE,FALSE
+1/6/24,Pull up,,,10,3,,TRUE,FALSE
+1/6/24,Leg lifts,,,10,3,,TRUE,FALSE
+1/6/24,SA DB Press,50,Lbs. ,10,1,,FALSE,FALSE
+1/6/24,SA Cable Row,55,Lbs. ,12,1,,FALSE,FALSE
+1/6/24,SA DB Press,55,Lbs. ,10,2,,FALSE,FALSE
+1/6/24,SA Cable Row,70,Lbs. ,10,1,,FALSE,FALSE
+1/6/24,Chest fly (incline Db),35,Lbs. ,10,3,,FALSE,FALSE
+1/6/24,Chest Supported Row,100,Lbs. ,12,3,,FALSE,FALSE
+1/8/24,Back Squats,195,Lbs. ,10,2,,FALSE,FALSE
+1/8/24,Paloff Press,35,Lbs. ,8,3,,FALSE,FALSE
+1/8/24,Back Squats,205,Lbs. ,10,1,,FALSE,FALSE
+1/8/24,RDL,205,Lbs. ,10,2,,FALSE,FALSE
+1/8/24,Leg lifts,,,12,3,,TRUE,FALSE
+1/8/24,RDL,205,Lbs. ,12,1,,FALSE,FALSE
+1/8/24,Rev. Lunge,50,Lbs. ,10,3,,FALSE,FALSE
+1/8/24,Side Plank,,,,3,45s,TRUE,FALSE
+1/8/24,Leg Curl,140,Lbs. ,12,3,,FALSE,FALSE
+1/8/24,Lateral lunge,35,Lbs. ,10,3,,FALSE,FALSE
+1/10/24,Torso rotation,35,Lbs. ,8,3,,FALSE,FALSE
+1/10/24,Flat Db press,55,Lbs. ,12,1,,FALSE,FALSE
+1/10/24,Flat Db press,60,Lbs. ,10,1,,FALSE,FALSE
+1/10/24,Flat Db press,70,Lbs. ,8,1,,FALSE,FALSE
+1/10/24,Flat Db press,70,Lbs. ,6,1,,FALSE,FALSE
+1/10/24,Chest fly (incline Db),35,Lbs. ,10,3,,FALSE,FALSE
+1/10/24,SA Db row,80,Lbs. ,10,3,,FALSE,FALSE
+,TRX Rev Fly,,,,,,FALSE,FALSE
