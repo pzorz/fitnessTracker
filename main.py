@@ -99,7 +99,7 @@ def plotLifts(master):
         plt.title(key)
         plt.ylabel('Weight')
         plt.xlabel('Date')
-        plt.savefig(key + '.png')
+        plt.savefig('plots/'+key + '.png')
         plt.close()
 
 
