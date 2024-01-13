@@ -1,5 +1,8 @@
 import math
+import dateutil
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import numpy as np
 
 import pandas as pd
 
@@ -90,16 +93,23 @@ def latestLiftDataReport(rawData):
         print(liftData.to_string())
 
 
-def plotLifts(master):
-    # print(master.keys())
+def plot_lifts(master):
     for key in master.keys():
-        # print(key)
-        # print(master[key])
-        master[key].plot(x='Date', y='Vol', style='.-')
+        dates = master[key]['Date'].values
+        dateArray = [dateutil.parser.parse(x) for x in dates]
+        x = mdates.date2num(dateArray)
+        vols = master[key]['Vol'].values
+
+        plt.plot(x, vols, marker='o')
         plt.title(key)
-        plt.ylabel('Weight')
+        plt.ylabel('Weight (lbs.)')
         plt.xlabel('Date')
-        plt.savefig('plots/'+key + '.png')
+
+        z = np.polyfit(x, vols, 1)
+        p = np.poly1d(z)
+
+        plt.plot(x, p(x), color='purple', linestyle='--')
+        plt.savefig('plots/' + key + '.png')
         plt.close()
 
 
@@ -111,6 +121,6 @@ if __name__ == '__main__':
     data = readLiftData('inputData/History-Table 1.csv')
     # latestLiftDataReport(data)
     master = processWeightedLifts(data)
-    plotLifts(master)
+    plot_lifts(master)
     # else:
     #     print('File must be a CSV')
