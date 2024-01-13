@@ -14,12 +14,15 @@ def readLiftData(fileName):
 
 
 def to_lbs(weight, unit):
-    if unit.lower() == 'kg.':
-        return weight * 2.2046
-    elif unit.lower() == 'lbs.':
-        return weight
-    else:
-        print('encountered unknown unit: ' + unit)
+    # units could be empty if this is a duration or body weight exercise
+    if not unit is None:
+        if unit.lower() == 'kg.':
+            return weight * 2.2046
+        elif unit.lower().strip() == 'lbs.':
+            return weight
+        else:
+            print('encountered unknown unit: ' + str(unit))
+            return weight
 
 
 def processWeightedLifts(data):
@@ -41,10 +44,11 @@ def processWeightedLifts(data):
         # go over each date for this lift
         for index, row in new.iterrows():
             date = row['Date']
-            weight = to_lbs(row['weight'], row['Units'])
+            weight = row['weight']
 
             # if this is not a body weight exercise
             if not math.isnan(weight):
+                weight = to_lbs(weight, row['Units'])
                 # print("TEST DATE: " + date)
                 reps = row['Num_Reps']
                 sets = row['Num_Sets']
@@ -105,8 +109,8 @@ if __name__ == '__main__':
 
     # if liftsFile.endswith('.csv'):
     data = readLiftData('inputData/History-Table 1.csv')
-    latestLiftDataReport(data)
-    # master = processWeightedLifts(data)
-    # plotLifts(master)
+    # latestLiftDataReport(data)
+    master = processWeightedLifts(data)
+    plotLifts(master)
     # else:
     #     print('File must be a CSV')
