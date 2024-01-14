@@ -7,12 +7,12 @@ import pandas as pd
 
 
 # this reads in the lift data
-def readLiftData(fileName):
-    print(fileName)
-    data = pd.read_csv(fileName)
-    return data
+def read_csv(fileName):
+    print('Reading: ' + fileName)
+    return pd.read_csv(fileName)
 
 
+# function to convert any unit into lbs
 def to_lbs(weight, unit):
     # units could be empty if this is a duration or body weight exercise
     if not unit is None:
@@ -73,7 +73,6 @@ def latestLiftDataReport(rawData):
 
 def plot_lifts(master):
     for key in master.keys():
-
         dates = master[key]['Date'].values
         dateArray = [dateutil.parser.parse(x) for x in dates]
         x = mdates.date2num(dateArray)
@@ -93,7 +92,7 @@ def plot_lifts(master):
         plt.gca().xaxis.set_major_locator(loc)
         plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m-%d-%Y'))
         plt.gcf().autofmt_xdate()
-        plt.xticks(x) # make sure only the x-ticks with data are shown
+        plt.xticks(x)  # make sure only the x-ticks with data are shown
 
         # plot the trend line
         z = np.polyfit(x, vols, 1)
@@ -104,9 +103,13 @@ def plot_lifts(master):
         plt.savefig('plots/' + key + '.png')
         plt.close()
 
+def process_body_data(bodyData):
+    print('Test')
 
 if __name__ == '__main__':
-    data = readLiftData('inputData/History-Table 1.csv')
+    # data = read_csv('inputData/History-Table 1.csv')
+    bodyData = read_csv('inputData/Measurements-Table 1.csv')
+    process_body_data(bodyData)
     # latestLiftDataReport(data)
-    master = processWeightedLifts(data)
-    plot_lifts(master)
+    # master = processWeightedLifts(data)
+    # plot_lifts(master)
