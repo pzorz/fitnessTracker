@@ -133,6 +133,10 @@ if __name__ == '__main__':
     # IDEA: read in measurement data and make trend line graphs
     # IDEA: when tell the user what has changed since last time
     # IDEA: when a trend-line graph is made write a report that says if it is trending up or down
+    # IDEA: plot data for body weight exercises
+    # IDEA: somehow differentiate if straps were used or not
+    # IDEA: group lifts into legs/arms or upper lower (or allow multiple groupings). IE tag a lift
+    # IDEA: Report on the max weight, max vol, and most recent weight of each type of lift
     data = readLiftData('inputData/History-Table 1.csv')
     # latestLiftDataReport(data)
     master = processWeightedLifts(data)
