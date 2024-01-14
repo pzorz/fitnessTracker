@@ -95,15 +95,15 @@ def latestLiftDataReport(rawData):
 
 def plot_lifts(master):
     for key in master.keys():
-        dates = master[key]['Date'].values
-        # print (dates)
-        # print (len(dates))
 
+        dates = master[key]['Date'].values
         dateArray = [dateutil.parser.parse(x) for x in dates]
         x = mdates.date2num(dateArray)
         vols = master[key]['Vol'].values
 
         plt.plot(x, vols, marker='o')
+
+        # add accoutrements to plots
         plt.title(key)
         plt.ylabel('Weight (lbs.)')
         plt.xlabel('Date')
@@ -115,13 +115,14 @@ def plot_lifts(master):
         plt.gca().xaxis.set_major_locator(loc)
         plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m-%d-%Y'))
         plt.gcf().autofmt_xdate()
-        plt.xticks(x)
+        plt.xticks(x) # make sure only the x-ticks with data are shown
 
-
+        # plot the trend line
         z = np.polyfit(x, vols, 1)
         p = np.poly1d(z)
-
         plt.plot(x, p(x), color='purple', linestyle='--')
+
+        # save and close the figure
         plt.savefig('plots/' + key + '.png')
         plt.close()
 
