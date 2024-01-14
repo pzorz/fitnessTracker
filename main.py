@@ -113,7 +113,7 @@ def plot_lifts(master):
         # Show X-axis major tick marks as dates
         loc = mdates.AutoDateLocator()
         plt.gca().xaxis.set_major_locator(loc)
-        plt.gca().xaxis.set_major_formatter(mdates.AutoDateFormatter(loc))
+        plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m-%d-%Y'))
         plt.gcf().autofmt_xdate()
         plt.xticks(x)
 
