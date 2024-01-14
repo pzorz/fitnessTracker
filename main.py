@@ -1,5 +1,8 @@
 import math
+import dateutil
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import numpy as np
 
 import pandas as pd
 
@@ -90,16 +93,37 @@ def latestLiftDataReport(rawData):
         print(liftData.to_string())
 
 
-def plotLifts(master):
-    # print(master.keys())
+def plot_lifts(master):
     for key in master.keys():
-        # print(key)
-        # print(master[key])
-        master[key].plot(x='Date', y='Vol', style='.-')
+
+        dates = master[key]['Date'].values
+        dateArray = [dateutil.parser.parse(x) for x in dates]
+        x = mdates.date2num(dateArray)
+        vols = master[key]['Vol'].values
+
+        plt.plot(x, vols, marker='o')
+
+        # add accoutrements to plots
         plt.title(key)
-        plt.ylabel('Weight')
+        plt.ylabel('Weight (lbs.)')
         plt.xlabel('Date')
-        plt.savefig(key + '.png')
+        plt.grid()
+        plt.autoscale()
+
+        # Show X-axis major tick marks as dates
+        loc = mdates.AutoDateLocator()
+        plt.gca().xaxis.set_major_locator(loc)
+        plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m-%d-%Y'))
+        plt.gcf().autofmt_xdate()
+        plt.xticks(x) # make sure only the x-ticks with data are shown
+
+        # plot the trend line
+        z = np.polyfit(x, vols, 1)
+        p = np.poly1d(z)
+        plt.plot(x, p(x), color='purple', linestyle='--')
+
+        # save and close the figure
+        plt.savefig('plots/' + key + '.png')
         plt.close()
 
 
@@ -111,6 +135,6 @@ if __name__ == '__main__':
     data = readLiftData('inputData/History-Table 1.csv')
     # latestLiftDataReport(data)
     master = processWeightedLifts(data)
-    plotLifts(master)
+    plot_lifts(master)
     # else:
     #     print('File must be a CSV')
