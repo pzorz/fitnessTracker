@@ -127,14 +127,13 @@ def plot_lifts(master):
         plt.close()
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    # liftsFile = input("Enter full path to file to read:")
 
-    # if liftsFile.endswith('.csv'):
+    # IDEA: Prompt the user what feature of the app they want to use (plot data, plot measurement, run report)
+    # IDEA: read in measurement data and make trend line graphs
+    # IDEA: when tell the user what has changed since last time
+    # IDEA: when a trend-line graph is made write a report that says if it is trending up or down
     data = readLiftData('inputData/History-Table 1.csv')
     # latestLiftDataReport(data)
     master = processWeightedLifts(data)
     plot_lifts(master)
-    # else:
-    #     print('File must be a CSV')
