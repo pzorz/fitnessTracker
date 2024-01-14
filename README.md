@@ -2,7 +2,7 @@
 This is a python program designed to read in my lifting data and create graphs for me to visualize my progress at the gym
 
 ## Ideas for new features
-    - [ ] \(Optional) Prompt the user what feature of the app they want to use (plot data, plot measurement, run report)
+    - [ ]  Prompt the user what feature of the app they want to use (plot data, plot measurement, run report)
     - [ ] \(Optional) read in measurement data and make trend line graphs
     - [ ] \(Optional) when tell the user what has changed since last time
     - [ ] \(Optional) when a trend-line graph is made write a report that says if it is trending up or down
