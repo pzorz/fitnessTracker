@@ -96,6 +96,9 @@ def latestLiftDataReport(rawData):
 def plot_lifts(master):
     for key in master.keys():
         dates = master[key]['Date'].values
+        # print (dates)
+        # print (len(dates))
+
         dateArray = [dateutil.parser.parse(x) for x in dates]
         x = mdates.date2num(dateArray)
         vols = master[key]['Vol'].values
@@ -104,6 +107,16 @@ def plot_lifts(master):
         plt.title(key)
         plt.ylabel('Weight (lbs.)')
         plt.xlabel('Date')
+        plt.grid()
+        plt.autoscale()
+
+        # Show X-axis major tick marks as dates
+        loc = mdates.AutoDateLocator()
+        plt.gca().xaxis.set_major_locator(loc)
+        plt.gca().xaxis.set_major_formatter(mdates.AutoDateFormatter(loc))
+        plt.gcf().autofmt_xdate()
+        plt.xticks(x)
+
 
         z = np.polyfit(x, vols, 1)
         p = np.poly1d(z)
