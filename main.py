@@ -4,25 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import numpy as np
 import pandas as pd
-
-
-# this reads in the lift data
-def read_csv(fileName):
-    print('Reading: ' + fileName)
-    return pd.read_csv(fileName)
-
-
-# function to convert any unit into lbs
-def to_lbs(weight, unit):
-    # units could be empty if this is a duration or body weight exercise
-    if not unit is None:
-        if unit.lower() == 'kg.':
-            return weight * 2.2046
-        elif unit.lower().strip() == 'lbs.':
-            return weight
-        else:
-            print('encountered unknown unit: ' + str(unit))
-            return weight
+import utils
 
 
 def processWeightedLifts(data):
@@ -42,7 +24,7 @@ def processWeightedLifts(data):
 
             # if this is not a body weight exercise
             if not math.isnan(weight):
-                weight = to_lbs(weight, row['Units'])
+                weight = utils.to_lbs(weight, row['Units'])
                 reps = row['Num_Reps']
                 sets = row['Num_Sets']
                 # calculate the total vol for this entry
@@ -103,12 +85,14 @@ def plot_lifts(master):
         plt.savefig('plots/' + key + '.png')
         plt.close()
 
+
 def process_body_data(bodyData):
     print('Test')
 
+
 if __name__ == '__main__':
     # data = read_csv('inputData/History-Table 1.csv')
-    bodyData = read_csv('inputData/Measurements-Table 1.csv')
+    bodyData = utils.read_csv('inputData/Measurements-Table 1.csv')
     process_body_data(bodyData)
     # latestLiftDataReport(data)
     # master = processWeightedLifts(data)
