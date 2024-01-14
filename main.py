@@ -44,13 +44,13 @@ def processWeightedLifts(data):
     return master
 
 
-def latestLiftDataReport(rawData):
-    liftTypes = rawData.Lift.unique()
-    master = {}
-    for lift in liftTypes:
-        # get all the data for one kind of Lift
-        liftData = data.loc[data['Lift'] == lift]
-        print(liftData.to_string())
+# def latestLiftDataReport(rawData):
+#     liftTypes = rawData.Lift.unique()
+#     master = {}
+#     for lift in liftTypes:
+#         # get all the data for one kind of Lift
+#         liftData = data.loc[data['Lift'] == lift]
+#         print(liftData.to_string())
 
 
 def plot_lifts(master):
@@ -87,7 +87,41 @@ def plot_lifts(master):
 
 
 def process_body_data(bodyData):
-    print('Test')
+    print(bodyData.to_string())
+    dates = bodyData['Date'].values
+    dateArray = [dateutil.parser.parse(x) for x in dates]
+    x = mdates.date2num(dateArray)
+
+
+    fig, (ax1, ax2) = plt.subplots(2, sharex=True)
+    fig.suptitle("Body Measurements")
+
+    ax1.plot(x, bodyData['waste'].values, marker='o')
+    # plot the trend line
+    z = np.polyfit(x, bodyData['waste'].values, 1)
+    p = np.poly1d(z)
+    ax1.plot(x, p(x), color='purple', linestyle='--')
+    ax1.set_title('waste')
+
+    ax2.plot(x, bodyData['hips'].values, marker='o')
+    # plot the trend line
+    z = np.polyfit(x, bodyData['hips'].values, 1)
+    p = np.poly1d(z)
+    ax2.plot(x, p(x), color='purple', linestyle='--')
+    ax2.set_title('hips')
+
+    # Show X-axis major tick marks as dates
+    loc = mdates.AutoDateLocator()
+    plt.gca().xaxis.set_major_locator(loc)
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m-%d-%Y'))
+    plt.gcf().autofmt_xdate()
+    plt.xticks(x)  # make sure only the x-ticks with data are shown
+
+    # save and close the figure
+    plt.savefig('plots/bodyData.png')
+    plt.close()
+
+    print(dates)
 
 
 if __name__ == '__main__':
