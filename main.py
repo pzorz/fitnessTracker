@@ -120,9 +120,10 @@ def plot_lifts(master):
 
 
 def reportPrinter():
-    print('MAX VOL REPORT')
-    for key in maxVolReport.keys():
-        print(key + '\t Max Vol: ' + str(maxVolReport[key]) + ' lbs.')
+    with open("reports/maxVols.log", "w") as file:
+        file.write("MAX VOL REPORT\n\n")
+        for key in maxVolReport.keys():
+            file.write(key + '\n\t\t\tMax Vol: ' + str(maxVolReport[key]) + ' lbs.\n\n')
 
 
 if __name__ == '__main__':
