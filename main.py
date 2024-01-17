@@ -5,6 +5,11 @@ import matplotlib.dates as mdates
 import numpy as np
 import pandas as pd
 
+##############################
+# GLOBAL VARS
+##############################
+maxVolReport = {}
+
 
 # this reads in the lift data
 def readLiftData(fileName):
@@ -26,9 +31,13 @@ def to_lbs(weight, unit):
 
 
 def processWeightedLifts(data):
+    # create a list of all the different lifts being tracked
     liftTypes = data.Lift.unique();
+    # create a dictionary, the keys will be the lifts. the tables will have date and volumn information
     master = {}
     for lift in liftTypes:
+        maxVolReport[lift] = 0
+
         # get all the data for one kind of Lift
         new = data.loc[data['Lift'] == lift]
 
@@ -48,17 +57,23 @@ def processWeightedLifts(data):
                 # calculate the total vol for this entry
                 vol = (reps * sets * weight)
 
-                # this is how to check if a date has mutiple entries
+                # this is how to check if a date has multiple entries
                 if date in df.Date.unique():
                     # this date has already been seen so find it and then update it
                     rowIndex = df.index[df['Date'] == date]
                     df.loc[rowIndex, 'Vol'] = df.loc[rowIndex, 'Vol'] + vol
+
                 else:
                     # this is the first time this date has been seen so create a new entry
                     newRow = {"Date": row['Date'], "Vol": vol}
                     df.loc[len(df)] = newRow
+
+        # if the data frame is not empty (ie if this is not a body weight exercise) then add the table to a dictionary
         if not df.empty:
             master[lift] = df
+            for index, row in df.iterrows():
+                if row['Vol'] > maxVolReport[lift]:
+                    maxVolReport[lift] = row['Vol']
     return master
 
 
@@ -73,7 +88,6 @@ def latestLiftDataReport(rawData):
 
 def plot_lifts(master):
     for key in master.keys():
-
         dates = master[key]['Date'].values
         dateArray = [dateutil.parser.parse(x) for x in dates]
         x = mdates.date2num(dateArray)
@@ -93,7 +107,7 @@ def plot_lifts(master):
         plt.gca().xaxis.set_major_locator(loc)
         plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m-%d-%Y'))
         plt.gcf().autofmt_xdate()
-        plt.xticks(x) # make sure only the x-ticks with data are shown
+        plt.xticks(x)  # make sure only the x-ticks with data are shown
 
         # plot the trend line
         z = np.polyfit(x, vols, 1)
@@ -105,8 +119,16 @@ def plot_lifts(master):
         plt.close()
 
 
+def reportPrinter():
+    with open("reports/maxVols.log", "w") as file:
+        file.write("MAX VOL REPORT\n\n")
+        for key in maxVolReport.keys():
+            file.write(key + '\n\t\t\tMax Vol: ' + str(maxVolReport[key]) + ' lbs.\n\n')
+
+
 if __name__ == '__main__':
     data = readLiftData('inputData/History-Table 1.csv')
     # latestLiftDataReport(data)
     master = processWeightedLifts(data)
-    plot_lifts(master)
+    reportPrinter()
+    # plot_lifts(master)
