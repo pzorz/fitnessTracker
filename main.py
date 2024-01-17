@@ -24,7 +24,7 @@ def to_lbs(weight, unit):
             print('encountered unknown unit: ' + str(unit))
             return weight
 
-
+maxVolReport = {}
 def processWeightedLifts(data):
     liftTypes = data.Lift.unique();
     master = {}
@@ -59,6 +59,13 @@ def processWeightedLifts(data):
                     df.loc[len(df)] = newRow
         if not df.empty:
             master[lift] = df
+
+            # if the lift is already in the report then check if this is more weight
+            if lift in maxVolReport.keys():
+                if maxVolReport[lift] < df['Vol']:
+                    maxVolReport[lift] = df['Vol']
+            else: # lift is not in the report so add it
+                maxVolReport[lift] = df['Vol']
     return master
 
 
@@ -103,7 +110,6 @@ def plot_lifts(master):
         # save and close the figure
         plt.savefig('plots/' + key + '.png')
         plt.close()
-
 
 if __name__ == '__main__':
     data = readLiftData('inputData/History-Table 1.csv')
