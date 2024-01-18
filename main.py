@@ -4,6 +4,11 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import numpy as np
 import pandas as pd
+from enum import Enum
+
+class ReportType(Enum):
+    maxVols = 1
+    mostRecent = 2
 
 ##############################
 # GLOBAL VARS
@@ -119,16 +124,22 @@ def plot_lifts(master):
         plt.close()
 
 
-def reportPrinter():
-    with open("reports/maxVols.log", "w") as file:
-        file.write("MAX VOL REPORT\n\n")
-        for key in maxVolReport.keys():
-            file.write(key + '\n\t\t\tMax Vol: ' + str(maxVolReport[key]) + ' lbs.\n\n')
+def reportPrinter(reportType):
+
+    if reportType is ReportType.maxVols:
+        with open("reports/maxVols.log", "w") as file:
+            file.write("MAX VOL REPORT\n\n")
+            for key in maxVolReport.keys():
+                file.write(key + '\n\t\t\tMax Vol: ' + str(maxVolReport[key]) + ' lbs.\n\n')
+
+    elif reportType is ReportType.mostRecent:
+        with open("reports/mostRecent.log", "w") as file:
+            file.write("MOST RECENT REPORT\n\n")
 
 
 if __name__ == '__main__':
     data = readLiftData('inputData/History-Table 1.csv')
     # latestLiftDataReport(data)
     master = processWeightedLifts(data)
-    reportPrinter()
+    reportPrinter(ReportType.mostRecent)
     # plot_lifts(master)
