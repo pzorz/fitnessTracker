@@ -18,6 +18,7 @@ class ReportType(Enum):
 maxVolReport = {}
 mostRecentRpt = {}
 
+
 # this reads in the lift data
 def readLiftData(fileName):
     print(fileName)
@@ -85,6 +86,13 @@ def processWeightedLifts(data):
                     newRow = {"Date": row['Date'], "Vol": vol}
                     df.loc[len(df)] = newRow
 
+            else:  # this is a body weight exercise
+                reps = row['Num_Reps']
+                sets = row['Num_Sets']
+
+                if date == latestDate:
+                    mostRecentRpt[lift].append({'Reps': reps, 'Sets': sets})
+
         # if the data frame is not empty (ie if this is not a body weight exercise) then add the table to a dictionary
         if not df.empty:
             master[lift] = df
@@ -150,10 +158,14 @@ def reportPrinter(reportType):
         with open("reports/mostRecent.log", "w") as file:
             file.write("MOST RECENT REPORT\n\n")
             for lift in mostRecentRpt.keys():
-                file.write(lift+'\n')
+                file.write(lift + '\n')
                 for index in mostRecentRpt[lift]:
-                    file.write('\t'+str(index['Weight']) + 'lbs. for ' + str(index['Sets']) +
-                               ' sets for ' + str(index['Reps']) + ' reps\n\n')
+                    if 'Weight' in index:
+                        file.write('\t' + str(index['Weight']) + 'lbs. for ' + str(index['Sets']) +
+                                   ' sets for ' + str(index['Reps']) + ' reps\n\n')
+                    else:
+                        file.write('\t' + str(index['Sets']) +
+                                   ' sets for ' + str(index['Reps']) + ' reps\n\n')
 
 
 if __name__ == '__main__':
