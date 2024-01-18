@@ -4,11 +4,19 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import numpy as np
 import pandas as pd
+from enum import Enum
+
+
+class ReportType(Enum):
+    maxVols = 1
+    mostRecent = 2
+
 
 ##############################
 # GLOBAL VARS
 ##############################
 maxVolReport = {}
+mostRecentRpt = {}
 
 
 # this reads in the lift data
@@ -32,14 +40,19 @@ def to_lbs(weight, unit):
 
 def processWeightedLifts(data):
     # create a list of all the different lifts being tracked
-    liftTypes = data.Lift.unique();
-    # create a dictionary, the keys will be the lifts. the tables will have date and volumn information
+    liftTypes = data.Lift.unique()
+
+    # create a dictionary, the keys will be the lifts. the tables will have date and volume information
     master = {}
     for lift in liftTypes:
         maxVolReport[lift] = 0
+        mostRecentRpt[lift] = []
 
         # get all the data for one kind of Lift
         new = data.loc[data['Lift'] == lift]
+
+        # find the latest date for this kind of lift
+        latestDate = new['Date'].values[len(new) - 1]
 
         # create a table of dates and volume/date for this kind of lift
         df = pd.DataFrame(columns=['Date', 'Vol'])
@@ -54,6 +67,11 @@ def processWeightedLifts(data):
                 weight = to_lbs(weight, row['Units'])
                 reps = row['Num_Reps']
                 sets = row['Num_Sets']
+
+                # if we are processing the data for the most recent date then save it for a report
+                if date == latestDate:
+                    mostRecentRpt[lift].append({'Weight': weight, 'Reps': reps, 'Sets': sets})
+
                 # calculate the total vol for this entry
                 vol = (reps * sets * weight)
 
@@ -68,9 +86,26 @@ def processWeightedLifts(data):
                     newRow = {"Date": row['Date'], "Vol": vol}
                     df.loc[len(df)] = newRow
 
+            else:  # this is a body weight exercise
+                reps = row['Num_Reps']
+                sets = row['Num_Sets']
+                dur = row['Duration']
+
+                # if this is the latest date for the exercise then we can record it
+                if date == latestDate:
+                    # if dur is a string then it has the seconds' keyword in it, otherwise its NaN
+                    # we want to only save duration if this is a timed exercise since we can look at the keys later to
+                    # decide how to print the report
+                    if not issubclass(type(dur), str):
+                        mostRecentRpt[lift].append({'Reps': reps, 'Sets': sets})
+                    else:
+                        mostRecentRpt[lift].append({'Reps': reps, 'Sets': sets, 'Dur': dur})
+
         # if the data frame is not empty (ie if this is not a body weight exercise) then add the table to a dictionary
         if not df.empty:
             master[lift] = df
+
+            # for the max vol we need to find the date with the most weight
             for index, row in df.iterrows():
                 if row['Vol'] > maxVolReport[lift]:
                     maxVolReport[lift] = row['Vol']
@@ -119,16 +154,34 @@ def plot_lifts(master):
         plt.close()
 
 
-def reportPrinter():
-    with open("reports/maxVols.log", "w") as file:
-        file.write("MAX VOL REPORT\n\n")
-        for key in maxVolReport.keys():
-            file.write(key + '\n\t\t\tMax Vol: ' + str(maxVolReport[key]) + ' lbs.\n\n')
+# this procedure can print 1 of 2 types of reports
+def reportPrinter(reportType):
+    if reportType is ReportType.maxVols:
+        with open("reports/maxVols.log", "w") as file:
+            file.write("MAX VOL REPORT\n\n")
+            for key in maxVolReport.keys():
+                file.write(key + '\n\t\t\tMax Vol: ' + str(maxVolReport[key]) + ' lbs.\n\n')
+
+    elif reportType is ReportType.mostRecent:
+        with open("reports/mostRecent.log", "w") as file:
+            file.write("MOST RECENT REPORT\n")
+            for lift in mostRecentRpt.keys():
+                file.write('\n' + lift + '\n')
+                for index in mostRecentRpt[lift]:
+                    if 'Weight' in index:
+                        file.write('\t' + str(index['Weight']) + 'lbs. for ' + str(index['Sets']) +
+                                   ' sets for ' + str(index['Reps']) + ' reps\n')
+                    elif 'Dur' in index:
+                        file.write('\t' + str(index['Sets']) +
+                                   ' sets for ' + str(index['Dur']) + '\n')
+                    else:
+                        file.write('\t' + str(index['Sets']) +
+                                   ' sets for ' + str(index['Reps']) + ' reps\n')
 
 
 if __name__ == '__main__':
     data = readLiftData('inputData/History-Table 1.csv')
     # latestLiftDataReport(data)
     master = processWeightedLifts(data)
-    reportPrinter()
+    reportPrinter(ReportType.mostRecent)
     # plot_lifts(master)
