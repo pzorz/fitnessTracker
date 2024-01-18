@@ -45,6 +45,7 @@ def processWeightedLifts(data):
     master = {}
     for lift in liftTypes:
         maxVolReport[lift] = 0
+        mostRecentRpt[lift] = []
 
         # get all the data for one kind of Lift
         new = data.loc[data['Lift'] == lift]
@@ -68,7 +69,7 @@ def processWeightedLifts(data):
 
                 # if we are processing the data for the most recent date then save it for a report
                 if date == latestDate:
-                    mostRecentRpt[lift] = {'Weight': weight, 'Reps': reps, 'Sets': sets}
+                    mostRecentRpt[lift].append({'Weight': weight, 'Reps': reps, 'Sets': sets})
 
                 # calculate the total vol for this entry
                 vol = (reps * sets * weight)
@@ -150,8 +151,9 @@ def reportPrinter(reportType):
             file.write("MOST RECENT REPORT\n\n")
             for lift in mostRecentRpt.keys():
                 file.write(lift+'\n')
-                file.write('\t'+str(mostRecentRpt[lift]['Weight']) + 'lbs. for ' + str(mostRecentRpt[lift]['Sets']) +
-                           ' sets for ' + str(mostRecentRpt[lift]['Reps']) + ' reps\n\n')
+                for index in mostRecentRpt[lift]:
+                    file.write('\t'+str(index['Weight']) + 'lbs. for ' + str(index['Sets']) +
+                               ' sets for ' + str(index['Reps']) + ' reps\n\n')
 
 
 if __name__ == '__main__':
