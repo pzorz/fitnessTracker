@@ -6,15 +6,17 @@ import numpy as np
 import pandas as pd
 from enum import Enum
 
+
 class ReportType(Enum):
     maxVols = 1
     mostRecent = 2
+
 
 ##############################
 # GLOBAL VARS
 ##############################
 maxVolReport = {}
-
+mostRecentRpt = {}
 
 # this reads in the lift data
 def readLiftData(fileName):
@@ -37,14 +39,18 @@ def to_lbs(weight, unit):
 
 def processWeightedLifts(data):
     # create a list of all the different lifts being tracked
-    liftTypes = data.Lift.unique();
-    # create a dictionary, the keys will be the lifts. the tables will have date and volumn information
+    liftTypes = data.Lift.unique()
+
+    # create a dictionary, the keys will be the lifts. the tables will have date and volume information
     master = {}
     for lift in liftTypes:
         maxVolReport[lift] = 0
 
         # get all the data for one kind of Lift
         new = data.loc[data['Lift'] == lift]
+
+        # find the latest date for this kind of lift
+        latestDate = new['Date'].values[len(new) - 1]
 
         # create a table of dates and volume/date for this kind of lift
         df = pd.DataFrame(columns=['Date', 'Vol'])
@@ -59,6 +65,11 @@ def processWeightedLifts(data):
                 weight = to_lbs(weight, row['Units'])
                 reps = row['Num_Reps']
                 sets = row['Num_Sets']
+
+                # if we are processing the data for the most recent date then save it for a report
+                if date == latestDate:
+                    mostRecentRpt[lift] = {'Weight': weight, 'Reps': reps, 'Sets': sets}
+
                 # calculate the total vol for this entry
                 vol = (reps * sets * weight)
 
@@ -76,6 +87,8 @@ def processWeightedLifts(data):
         # if the data frame is not empty (ie if this is not a body weight exercise) then add the table to a dictionary
         if not df.empty:
             master[lift] = df
+
+            # for the max vol we need to find the date with the most weight
             for index, row in df.iterrows():
                 if row['Vol'] > maxVolReport[lift]:
                     maxVolReport[lift] = row['Vol']
@@ -124,8 +137,8 @@ def plot_lifts(master):
         plt.close()
 
 
+# this procedure can print 1 of 2 types of reports
 def reportPrinter(reportType):
-
     if reportType is ReportType.maxVols:
         with open("reports/maxVols.log", "w") as file:
             file.write("MAX VOL REPORT\n\n")
@@ -135,6 +148,10 @@ def reportPrinter(reportType):
     elif reportType is ReportType.mostRecent:
         with open("reports/mostRecent.log", "w") as file:
             file.write("MOST RECENT REPORT\n\n")
+            for lift in mostRecentRpt.keys():
+                file.write(lift+'\n')
+                file.write('\t'+str(mostRecentRpt[lift]['Weight']) + 'lbs. for ' + str(mostRecentRpt[lift]['Sets']) +
+                           ' sets for ' + str(mostRecentRpt[lift]['Reps']) + ' reps\n\n')
 
 
 if __name__ == '__main__':
