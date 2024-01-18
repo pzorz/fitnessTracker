@@ -89,9 +89,17 @@ def processWeightedLifts(data):
             else:  # this is a body weight exercise
                 reps = row['Num_Reps']
                 sets = row['Num_Sets']
+                dur = row['Duration']
 
+                # if this is the latest date for the exercise then we can record it
                 if date == latestDate:
-                    mostRecentRpt[lift].append({'Reps': reps, 'Sets': sets})
+                    # if dur is a string then it has the seconds' keyword in it, otherwise its NaN
+                    # we want to only save duration if this is a timed exercise since we can look at the keys later to
+                    # decide how to print the report
+                    if not issubclass(type(dur), str):
+                        mostRecentRpt[lift].append({'Reps': reps, 'Sets': sets})
+                    else:
+                        mostRecentRpt[lift].append({'Reps': reps, 'Sets': sets, 'Dur': dur})
 
         # if the data frame is not empty (ie if this is not a body weight exercise) then add the table to a dictionary
         if not df.empty:
@@ -156,16 +164,19 @@ def reportPrinter(reportType):
 
     elif reportType is ReportType.mostRecent:
         with open("reports/mostRecent.log", "w") as file:
-            file.write("MOST RECENT REPORT\n\n")
+            file.write("MOST RECENT REPORT\n")
             for lift in mostRecentRpt.keys():
-                file.write(lift + '\n')
+                file.write('\n' + lift + '\n')
                 for index in mostRecentRpt[lift]:
                     if 'Weight' in index:
                         file.write('\t' + str(index['Weight']) + 'lbs. for ' + str(index['Sets']) +
-                                   ' sets for ' + str(index['Reps']) + ' reps\n\n')
+                                   ' sets for ' + str(index['Reps']) + ' reps\n')
+                    elif 'Dur' in index:
+                        file.write('\t' + str(index['Sets']) +
+                                   ' sets for ' + str(index['Dur']) + '\n')
                     else:
                         file.write('\t' + str(index['Sets']) +
-                                   ' sets for ' + str(index['Reps']) + ' reps\n\n')
+                                   ' sets for ' + str(index['Reps']) + ' reps\n')
 
 
 if __name__ == '__main__':
