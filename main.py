@@ -83,40 +83,40 @@ def plot_lifts(master):
 
 def process_body_data(bodyData):
     print(bodyData.to_string())
-    dates = bodyData['Date'].values
-    dateArray = [dateutil.parser.parse(x) for x in dates]
-    x = mdates.date2num(dateArray)
-
-
-    fig = plt.figure(1)
-
-    # fig, (ax1, ax2, ax3) = plt.subplots(3, sharex=True)
-    fig.suptitle("Body Measurements")
-
-    for key in bodyData.keys():
-        if key != 'Date':
-            ax = fig.add_subplot(111)
-            ax.plot(x, bodyData[key].values, marker='o')
-            ax.set_title(key)
-    # ax1.plot(x, bodyData['waste'].values, marker='o')
-    # utils.plot_trendline(ax1, x, bodyData['waste'].values)
-    # ax1.set_title('waste')
+    # dates = bodyData['Date'].values
+    # dateArray = [dateutil.parser.parse(x) for x in dates]
+    # x = mdates.date2num(dateArray)
     #
-    # ax2.plot(x, bodyData['hips'].values, marker='o')
-    # utils.plot_trendline(ax2, x, bodyData['hips'].values)
-    # ax2.set_title('hips')
     #
-    # ax3.plot(x, bodyData['chest'].values, marker='o')
-    # utils.plot_trendline(ax3, x, bodyData['chest'].values)
-    # ax3.set_title('chest')
+    # fig = plt.figure(1)
     #
-    # utils.date_formatter(x)
-
-    # save and close the figure
-    plt.savefig('plots/bodyData.png')
-    plt.close()
-
-    print(dates)
+    # # fig, (ax1, ax2, ax3) = plt.subplots(3, sharex=True)
+    # fig.suptitle("Body Measurements")
+    #
+    # for key in bodyData.keys():
+    #     if key != 'Date':
+    #         ax = fig.add_subplot(111)
+    #         ax.plot(x, bodyData[key].values, marker='o')
+    #         ax.set_title(key)
+    # # ax1.plot(x, bodyData['waste'].values, marker='o')
+    # # utils.plot_trendline(ax1, x, bodyData['waste'].values)
+    # # ax1.set_title('waste')
+    # #
+    # # ax2.plot(x, bodyData['hips'].values, marker='o')
+    # # utils.plot_trendline(ax2, x, bodyData['hips'].values)
+    # # ax2.set_title('hips')
+    # #
+    # # ax3.plot(x, bodyData['chest'].values, marker='o')
+    # # utils.plot_trendline(ax3, x, bodyData['chest'].values)
+    # # ax3.set_title('chest')
+    # #
+    # # utils.date_formatter(x)
+    #
+    # # save and close the figure
+    # plt.savefig('plots/bodyData.png')
+    # plt.close()
+    #
+    # print(dates)
 
 
 if __name__ == '__main__':
