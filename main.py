@@ -120,7 +120,7 @@ def process_body_data(bodyData):
 
 
 if __name__ == '__main__':
-    # data = read_csv('inputData/History-Table 1.csv')
+    # data = utils.read_csv('inputData/History-Table 1.csv')
     bodyData = utils.read_csv('inputData/Measurements-Table 1.csv')
     process_body_data(bodyData)
     # latestLiftDataReport(data)
