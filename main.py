@@ -4,38 +4,8 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import numpy as np
 import pandas as pd
-from enum import Enum
+import utils
 
-
-class ReportType(Enum):
-    maxVols = 1
-    mostRecent = 2
-
-
-##############################
-# GLOBAL VARS
-##############################
-maxVolReport = {}
-mostRecentRpt = {}
-
-
-# this reads in the lift data
-def readLiftData(fileName):
-    print(fileName)
-    data = pd.read_csv(fileName)
-    return data
-
-
-def to_lbs(weight, unit):
-    # units could be empty if this is a duration or body weight exercise
-    if not unit is None:
-        if unit.lower() == 'kg.':
-            return weight * 2.2046
-        elif unit.lower().strip() == 'lbs.':
-            return weight
-        else:
-            print('encountered unknown unit: ' + str(unit))
-            return weight
 
 
 def processWeightedLifts(data):
@@ -64,7 +34,7 @@ def processWeightedLifts(data):
 
             # if this is not a body weight exercise
             if not math.isnan(weight):
-                weight = to_lbs(weight, row['Units'])
+                weight = utils.to_lbs(weight, row['Units'])
                 reps = row['Num_Reps']
                 sets = row['Num_Sets']
 
@@ -112,13 +82,13 @@ def processWeightedLifts(data):
     return master
 
 
-def latestLiftDataReport(rawData):
-    liftTypes = rawData.Lift.unique()
-    master = {}
-    for lift in liftTypes:
-        # get all the data for one kind of Lift
-        liftData = data.loc[data['Lift'] == lift]
-        print(liftData.to_string())
+# def latestLiftDataReport(rawData):
+#     liftTypes = rawData.Lift.unique()
+#     master = {}
+#     for lift in liftTypes:
+#         # get all the data for one kind of Lift
+#         liftData = data.loc[data['Lift'] == lift]
+#         print(liftData.to_string())
 
 
 def plot_lifts(master):
@@ -136,13 +106,8 @@ def plot_lifts(master):
         plt.xlabel('Date')
         plt.grid()
         plt.autoscale()
-
-        # Show X-axis major tick marks as dates
-        loc = mdates.AutoDateLocator()
-        plt.gca().xaxis.set_major_locator(loc)
-        plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m-%d-%Y'))
-        plt.gcf().autofmt_xdate()
-        plt.xticks(x)  # make sure only the x-ticks with data are shown
+        
+        utils.date_formatter(x)
 
         # plot the trend line
         z = np.polyfit(x, vols, 1)
@@ -154,6 +119,43 @@ def plot_lifts(master):
         plt.close()
 
 
+def process_body_data(bodyData):
+    print(bodyData.to_string())
+    # dates = bodyData['Date'].values
+    # dateArray = [dateutil.parser.parse(x) for x in dates]
+    # x = mdates.date2num(dateArray)
+    #
+    #
+    # fig = plt.figure(1)
+    #
+    # # fig, (ax1, ax2, ax3) = plt.subplots(3, sharex=True)
+    # fig.suptitle("Body Measurements")
+    #
+    # for key in bodyData.keys():
+    #     if key != 'Date':
+    #         ax = fig.add_subplot(111)
+    #         ax.plot(x, bodyData[key].values, marker='o')
+    #         ax.set_title(key)
+    # # ax1.plot(x, bodyData['waste'].values, marker='o')
+    # # utils.plot_trendline(ax1, x, bodyData['waste'].values)
+    # # ax1.set_title('waste')
+    # #
+    # # ax2.plot(x, bodyData['hips'].values, marker='o')
+    # # utils.plot_trendline(ax2, x, bodyData['hips'].values)
+    # # ax2.set_title('hips')
+    # #
+    # # ax3.plot(x, bodyData['chest'].values, marker='o')
+    # # utils.plot_trendline(ax3, x, bodyData['chest'].values)
+    # # ax3.set_title('chest')
+    # #
+    # # utils.date_formatter(x)
+    #
+    # # save and close the figure
+    # plt.savefig('plots/bodyData.png')
+    # plt.close()
+    #
+    # print(dates)
+    
 # this procedure can print 1 of 2 types of reports
 def reportPrinter(reportType):
     if reportType is ReportType.maxVols:
@@ -180,8 +182,12 @@ def reportPrinter(reportType):
 
 
 if __name__ == '__main__':
-    data = readLiftData('inputData/History-Table 1.csv')
+    # data = utils.read_csv('inputData/History-Table 1.csv')
+    bodyData = utils.read_csv('inputData/Measurements-Table 1.csv')
+    process_body_data(bodyData)
+    
     # latestLiftDataReport(data)
-    master = processWeightedLifts(data)
-    reportPrinter(ReportType.mostRecent)
+   
+    # master = processWeightedLifts(data)
+    #reportPrinter(ReportType.mostRecent)
     # plot_lifts(master)
