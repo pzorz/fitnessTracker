@@ -199,6 +199,6 @@ if __name__ == '__main__':
 
     # latestLiftDataReport(data)
 
-    #master = processWeightedLifts(data)
-    reportPrinter(ReportType.mostRecent)
+    # master = processWeightedLifts(data)
+    # reportPrinter(ReportType.mostRecent)
     # plot_lifts(master)
