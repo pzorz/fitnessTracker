@@ -117,7 +117,7 @@ def plot_lifts(master):
         plt.xlabel('Date')
         plt.grid()
         plt.autoscale()
-        
+
         utils.date_formatter(x)
 
         # plot the trend line
@@ -166,7 +166,7 @@ def process_body_data(bodyData):
     # plt.close()
     #
     # print(dates)
-    
+
 # this procedure can print 1 of 2 types of reports
 def reportPrinter(reportType):
     if reportType is ReportType.maxVols:
@@ -196,9 +196,9 @@ if __name__ == '__main__':
     # data = utils.read_csv('inputData/History-Table 1.csv')
     bodyData = utils.read_csv('inputData/Measurements-Table 1.csv')
     process_body_data(bodyData)
-    
+
     # latestLiftDataReport(data)
-   
+
     # master = processWeightedLifts(data)
-    #reportPrinter(ReportType.mostRecent)
+    # reportPrinter(ReportType.mostRecent)
     # plot_lifts(master)
