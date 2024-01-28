@@ -19,25 +19,6 @@ maxVolReport = {}
 mostRecentRpt = {}
 
 
-# this reads in the lift data
-def readLiftData(fileName):
-    print(fileName)
-    data = pd.read_csv(fileName)
-    return data
-
-
-def to_lbs(weight, unit):
-    # units could be empty if this is a duration or body weight exercise
-    if not unit is None:
-        if unit.lower() == 'kg.':
-            return weight * 2.2046
-        elif unit.lower().strip() == 'lbs.':
-            return weight
-        else:
-            print('encountered unknown unit: ' + str(unit))
-            return weight
-
-
 def processWeightedLifts(data):
     # create a list of all the different lifts being tracked
     liftTypes = data.Lift.unique()
@@ -64,7 +45,7 @@ def processWeightedLifts(data):
 
             # if this is not a body weight exercise
             if not math.isnan(weight):
-                weight = to_lbs(weight, row['Units'])
+                weight = utils.to_lbs(weight, row['Units'])
                 reps = row['Num_Reps']
                 sets = row['Num_Sets']
 
