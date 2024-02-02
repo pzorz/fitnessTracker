@@ -132,6 +132,22 @@ def plot_lifts(master):
 
 def process_body_data(bodyData):
     print(bodyData.to_string())
+    numMeasures = bodyData.shape[1] - 1
+    cols = 5
+
+    rows = numMeasures//cols
+
+    if numMeasures % cols != 0:
+        rows += 1
+
+    position = range(1, numMeasures + 1)
+
+    fig = plt.figure(1)
+    for k in range(numMeasures):
+        ax = fig.add_subplot(rows, cols, position[k])
+        ax.plot(1,1)
+    plt.show()
+
     # dates = bodyData['Date'].values
     # dateArray = [dateutil.parser.parse(x) for x in dates]
     # x = mdates.date2num(dateArray)
