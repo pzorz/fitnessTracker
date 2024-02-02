@@ -2,3 +2,4 @@
 *.png
 inputData/Measurements-Table 1.csv
 *.log
+__pycache__/
