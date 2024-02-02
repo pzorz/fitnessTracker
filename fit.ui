@@ -24,13 +24,6 @@
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="2" column="1">
-      <widget class="QPushButton" name="liftsButton">
-       <property name="text">
-        <string>Lifts</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="0">
       <widget class="QPushButton" name="latestLiftButton_2">
        <property name="text">
@@ -63,6 +56,13 @@
       <widget class="QLabel" name="label">
        <property name="text">
         <string>Reports</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="liftsButton">
+       <property name="text">
+        <string>Lifts</string>
        </property>
       </widget>
      </item>

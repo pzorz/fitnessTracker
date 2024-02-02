@@ -19,7 +19,10 @@ maxVolReport = {}
 mostRecentRpt = {}
 
 
-def processWeightedLifts(data):
+def processWeightedLifts():
+
+    data = utils.read_csv('inputData/History-Table 1.csv')
+
     # create a list of all the different lifts being tracked
     liftTypes = data.Lift.unique()
 
@@ -90,7 +93,8 @@ def processWeightedLifts(data):
             for index, row in df.iterrows():
                 if row['Vol'] > maxVolReport[lift]:
                     maxVolReport[lift] = row['Vol']
-    return master
+    # return master
+    plot_lifts(master)
 
 
 # def latestLiftDataReport(rawData):
@@ -187,14 +191,10 @@ def reportPrinter(reportType):
                         file.write('\t' + str(index['Sets']) +
                                    ' sets for ' + str(index['Reps']) + ' reps\n')
 
-
 if __name__ == '__main__':
-    # data = utils.read_csv('inputData/History-Table 1.csv')
     bodyData = utils.read_csv('inputData/Measurements-Table 1.csv')
     process_body_data(bodyData)
 
     # latestLiftDataReport(data)
 
-    # master = processWeightedLifts(data)
     #reportPrinter(ReportType.mostRecent)
-    # plot_lifts(master)
