@@ -131,12 +131,16 @@ def plot_lifts(master):
 
 
 def process_body_data(bodyData):
-    print(bodyData.to_string())
+    # print(bodyData.to_string())
     colNames = bodyData.columns.values
-    print(colNames[1])
+    # print(colNames[1])
+
+    dates = bodyData['Date'].values
+    dateArray = [dateutil.parser.parse(x) for x in dates]
+    x = mdates.date2num(dateArray)
 
     numMeasures = bodyData.shape[1] - 1
-    cols = 5
+    cols = 2
 
     rows = numMeasures//cols
 
@@ -145,49 +149,18 @@ def process_body_data(bodyData):
 
     position = range(1, numMeasures + 1)
 
-    fig = plt.figure(1)
+    fig = plt.figure(figsize=(12, 10), dpi=100)
     fig.suptitle("Body Measurements")
     for k in range(1, numMeasures+1):
         ax = fig.add_subplot(rows, cols, position[k-1])
-        ax.plot(1,1)
+        ax.plot(x, bodyData[colNames[k]].values, marker='o')
         ax.title.set_text(colNames[k])
-    plt.show()
+        ax.set_ylabel("Inches")
+        ax.set_xlabel("Date")
+        ax.grid()
+        utils.date_formatter(x)
+    plt.savefig('plots/bodyData.png')
     plt.close()
-
-    # dates = bodyData['Date'].values
-    # dateArray = [dateutil.parser.parse(x) for x in dates]
-    # x = mdates.date2num(dateArray)
-    #
-    #
-    # fig = plt.figure(1)
-    #
-    # # fig, (ax1, ax2, ax3) = plt.subplots(3, sharex=True)
-    # fig.suptitle("Body Measurements")
-    #
-    # for key in bodyData.keys():
-    #     if key != 'Date':
-    #         ax = fig.add_subplot(111)
-    #         ax.plot(x, bodyData[key].values, marker='o')
-    #         ax.set_title(key)
-    # # ax1.plot(x, bodyData['waste'].values, marker='o')
-    # # utils.plot_trendline(ax1, x, bodyData['waste'].values)
-    # # ax1.set_title('waste')
-    # #
-    # # ax2.plot(x, bodyData['hips'].values, marker='o')
-    # # utils.plot_trendline(ax2, x, bodyData['hips'].values)
-    # # ax2.set_title('hips')
-    # #
-    # # ax3.plot(x, bodyData['chest'].values, marker='o')
-    # # utils.plot_trendline(ax3, x, bodyData['chest'].values)
-    # # ax3.set_title('chest')
-    # #
-    # # utils.date_formatter(x)
-    #
-    # # save and close the figure
-    # plt.savefig('plots/bodyData.png')
-    # plt.close()
-    #
-    # print(dates)
 
 # this procedure can print 1 of 2 types of reports
 def reportPrinter(reportType):
