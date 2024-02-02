@@ -158,6 +158,7 @@ def process_body_data(bodyData):
         ax.set_ylabel("Inches")
         ax.set_xlabel("Date")
         ax.grid()
+        utils.plot_trendline(ax, x, bodyData[colNames[k]].values)
         utils.date_formatter(x)
     plt.savefig('plots/bodyData.png')
     plt.close()
