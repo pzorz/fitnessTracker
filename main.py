@@ -132,6 +132,9 @@ def plot_lifts(master):
 
 def process_body_data(bodyData):
     print(bodyData.to_string())
+    colNames = bodyData.columns.values
+    print(colNames[1])
+
     numMeasures = bodyData.shape[1] - 1
     cols = 5
 
@@ -143,10 +146,13 @@ def process_body_data(bodyData):
     position = range(1, numMeasures + 1)
 
     fig = plt.figure(1)
-    for k in range(numMeasures):
-        ax = fig.add_subplot(rows, cols, position[k])
+    fig.suptitle("Body Measurements")
+    for k in range(1, numMeasures+1):
+        ax = fig.add_subplot(rows, cols, position[k-1])
         ax.plot(1,1)
+        ax.title.set_text(colNames[k])
     plt.show()
+    plt.close()
 
     # dates = bodyData['Date'].values
     # dateArray = [dateutil.parser.parse(x) for x in dates]
