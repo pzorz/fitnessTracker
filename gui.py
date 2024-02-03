@@ -1,31 +1,20 @@
 from fit import *
-# from PySide6 import QtCore, QtWidgets, QtGui
-# from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton
-# from PyQt6 import uic
 import sys
 import main
 
 
+# create a class that will be able to display the autogen code. We cannot edit that file so all callbacks will
+# need to be made in this class instead.
 class Fit(Ui_MainWindow):
     def __init__(self, window):
         self.setupUi(window)
+        # callback for when the lifts button is pressed
         self.liftsButton.clicked.connect(main.processWeightedLifts)
 
-    def ClickMe(self):
-        print("Lift Button Pressed")
 
+# create the app to display
 app = QtWidgets.QApplication(sys.argv)
 mainWin = QtWidgets.QMainWindow()
-
 ui = Fit(mainWin)
 mainWin.show()
 app.exec()
-
-# Form, Window = uic.loadUiType("fit.ui")
-#
-# app = QApplication([])
-# window = Window()
-# form = Form()
-# form.setupUi(window)
-# window.show()
-# app.exec()
