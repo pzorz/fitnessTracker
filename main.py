@@ -23,8 +23,8 @@ mostRecentRpt = {}
 
 # this function will load in the CSV of lift data, process it to do data analysis on it to get
 # usable, plot-able information. It will then call a function to plot that data.
-def processWeightedLifts():
-    data = utils.read_csv('inputData/History-Table 1.csv')
+def processWeightedLifts(fileName):
+    data = utils.read_csv(fileName)
 
     # create a list of all the different lifts being tracked
     liftTypes = data.Lift.unique()
