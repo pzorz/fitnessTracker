@@ -7,6 +7,8 @@ import pandas as pd
 from enum import Enum
 import utils
 
+
+# this class is defining an enum for the types of reports we do
 class ReportType(Enum):
     maxVols = 1
     mostRecent = 2
@@ -19,7 +21,11 @@ maxVolReport = {}
 mostRecentRpt = {}
 
 
-def processWeightedLifts(data):
+# this function will load in the CSV of lift data, process it to do data analysis on it to get
+# usable, plot-able information. It will then call a function to plot that data.
+def processWeightedLifts():
+    data = utils.read_csv('inputData/History-Table 1.csv')
+
     # create a list of all the different lifts being tracked
     liftTypes = data.Lift.unique()
 
@@ -90,18 +96,10 @@ def processWeightedLifts(data):
             for index, row in df.iterrows():
                 if row['Vol'] > maxVolReport[lift]:
                     maxVolReport[lift] = row['Vol']
-    return master
+    plot_lifts(master)
 
 
-# def latestLiftDataReport(rawData):
-#     liftTypes = rawData.Lift.unique()
-#     master = {}
-#     for lift in liftTypes:
-#         # get all the data for one kind of Lift
-#         liftData = data.loc[data['Lift'] == lift]
-#         print(liftData.to_string())
-
-
+# this function takes in the data that care about and plots it
 def plot_lifts(master):
     for key in master.keys():
         dates = master[key]['Date'].values
@@ -130,6 +128,7 @@ def plot_lifts(master):
         plt.close()
 
 
+# this function takes in the body data and processes it into usable plot-able data. It also plots that data
 def process_body_data(bodyData):
     # print(bodyData.to_string())
     colNames = bodyData.columns.values
@@ -142,7 +141,7 @@ def process_body_data(bodyData):
     numMeasures = bodyData.shape[1] - 1
     cols = 2
 
-    rows = numMeasures//cols
+    rows = numMeasures // cols
 
     if numMeasures % cols != 0:
         rows += 1
@@ -151,8 +150,8 @@ def process_body_data(bodyData):
 
     fig = plt.figure(figsize=(12, 10), dpi=100)
     fig.suptitle("Body Measurements")
-    for k in range(1, numMeasures+1):
-        ax = fig.add_subplot(rows, cols, position[k-1])
+    for k in range(1, numMeasures + 1):
+        ax = fig.add_subplot(rows, cols, position[k - 1])
         ax.plot(x, bodyData[colNames[k]].values, marker='o')
         ax.title.set_text(colNames[k])
         ax.set_ylabel("Inches")
@@ -162,6 +161,7 @@ def process_body_data(bodyData):
         utils.date_formatter(x)
     plt.savefig('plots/bodyData.png')
     plt.close()
+
 
 # this procedure can print 1 of 2 types of reports
 def reportPrinter(reportType):
@@ -189,12 +189,6 @@ def reportPrinter(reportType):
 
 
 if __name__ == '__main__':
-    # data = utils.read_csv('inputData/History-Table 1.csv')
     bodyData = utils.read_csv('inputData/Measurements-Table 1.csv')
     process_body_data(bodyData)
-
-    # latestLiftDataReport(data)
-
-    # master = processWeightedLifts(data)
-    #reportPrinter(ReportType.mostRecent)
-    # plot_lifts(master)
+    # reportPrinter(ReportType.mostRecent)
