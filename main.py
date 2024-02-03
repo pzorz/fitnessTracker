@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 from enum import Enum
 import utils
+from PyQt6.QtWidgets import QApplication
 
 
 # this class is defining an enum for the types of reports we do
@@ -23,7 +24,7 @@ mostRecentRpt = {}
 
 # this function will load in the CSV of lift data, process it to do data analysis on it to get
 # usable, plot-able information. It will then call a function to plot that data.
-def processWeightedLifts(fileName):
+def processWeightedLifts(fileName, progressBar):
     data = utils.read_csv(fileName)
 
     # create a list of all the different lifts being tracked
@@ -96,11 +97,17 @@ def processWeightedLifts(fileName):
             for index, row in df.iterrows():
                 if row['Vol'] > maxVolReport[lift]:
                     maxVolReport[lift] = row['Vol']
-    plot_lifts(master)
+    plot_lifts(master, progressBar)
+    progressBar.setValue(100)
+    QApplication.processEvents()
 
 
 # this function takes in the data that care about and plots it
-def plot_lifts(master):
+def plot_lifts(master, progressBar):
+    num = len(master.keys())
+    numPerLift = 100/num
+    progress = 0.0
+
     for key in master.keys():
         dates = master[key]['Date'].values
         dateArray = [dateutil.parser.parse(x) for x in dates]
@@ -126,6 +133,9 @@ def plot_lifts(master):
         # save and close the figure
         plt.savefig('plots/' + key + '.png')
         plt.close()
+        progressBar.setValue(progress)
+        QApplication.processEvents()
+        progress += numPerLift
 
 
 # this function takes in the body data and processes it into usable plot-able data. It also plots that data

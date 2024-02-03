@@ -20,7 +20,7 @@ class Fit(Ui_MainWindow):
                                             "Pick a CSV for the Lifting Data",
                                             "",
                                             "CSV (*.csv)")
-        main.processWeightedLifts(fname[0])
+        main.processWeightedLifts(fname[0], self.progressBar)
 
 
 # create the app to display
