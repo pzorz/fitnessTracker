@@ -1,6 +1,7 @@
 from fit import *
 import sys
 import main
+import utils
 
 from PyQt6.QtWidgets import QFileDialog
 
@@ -15,6 +16,8 @@ class Fit(Ui_MainWindow):
         # callback for when the buttons on the GUI are pressed
         self.liftsButton.clicked.connect(self.processLifts)
         self.bodyButton.clicked.connect(self.processBodyData)
+        self.maxVolBtn.clicked.connect(self.runMaxVolReport)
+        self.recentBtn.clicked.connect(self.runRecentReport)
 
     # this function will open a file picker, get the file and then trigger the plot generator for the lift data
     def processLifts(self):
@@ -32,6 +35,16 @@ class Fit(Ui_MainWindow):
                                             "/Users/peterzorzonello/Development/Python/fitnessTracker/inputData/",
                                             "CSV (*.csv)")
         main.process_body_data(fName[0], self.progressBar)
+
+    # this function will run the max vol report
+    def runMaxVolReport(self):
+        self.progressBar.setValue(0.0)
+        main.reportPrinter(utils.ReportType.maxVols)
+
+    # this function will run the most recent lift report
+    def runRecentReport(self):
+        self.progressBar.setValue(0.0)
+        main.reportPrinter(utils.ReportType.mostRecent)
 
 
 # create the app to display

@@ -2,6 +2,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import numpy as np
+from enum import Enum
+
+
+# this class is defining an enum for the types of reports we do
+class ReportType(Enum):
+    maxVols = 1
+    mostRecent = 2
 
 
 # abstracted function to formate the x-axis dates

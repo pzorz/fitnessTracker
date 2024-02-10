@@ -5,15 +5,8 @@ from matplotlib import pyplot as plt
 from matplotlib import dates as mdates
 import numpy as np
 import pandas as pd
-from enum import Enum
 import utils
 from PyQt6.QtWidgets import QApplication
-
-
-# this class is defining an enum for the types of reports we do
-class ReportType(Enum):
-    maxVols = 1
-    mostRecent = 2
 
 
 ##############################
@@ -194,14 +187,14 @@ def process_body_data(fileName, progressBar):
 
 # this procedure can print 1 of 2 types of reports
 def reportPrinter(reportType):
-    if reportType is ReportType.maxVols:
-        with open("reports/maxVols.log", "w") as file:
+    if reportType is utils.ReportType.maxVols:
+        with open("/Users/peterzorzonello/Development/Python/fitnessTracker/reports/maxVols.log", "w") as file:
             file.write("MAX VOL REPORT\n\n")
             for key in maxVolReport.keys():
                 file.write(key + '\n\t\t\tMax Vol: ' + str(maxVolReport[key]) + ' lbs.\n\n')
 
-    elif reportType is ReportType.mostRecent:
-        with open("reports/mostRecent.log", "w") as file:
+    elif reportType is utils.ReportType.mostRecent:
+        with open("/Users/peterzorzonello/Development/Python/fitnessTracker/reports/mostRecent.log", "w") as file:
             file.write("MOST RECENT REPORT\n")
             for lift in mostRecentRpt.keys():
                 file.write('\n' + lift + '\n')
@@ -215,7 +208,3 @@ def reportPrinter(reportType):
                     else:
                         file.write('\t' + str(index['Sets']) +
                                    ' sets for ' + str(index['Reps']) + ' reps\n')
-
-
-
-# reportPrinter(ReportType.mostRecent)
