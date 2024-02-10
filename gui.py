@@ -1,6 +1,7 @@
 from fit import *
 import sys
 import main
+import utils
 
 from PyQt6.QtWidgets import QFileDialog
 
