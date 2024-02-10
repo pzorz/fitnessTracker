@@ -1,7 +1,8 @@
 import math
 import dateutil
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
+import matplotlib
+from matplotlib import pyplot as plt
+from matplotlib import dates as mdates
 import numpy as np
 import pandas as pd
 from enum import Enum
@@ -131,8 +132,8 @@ def plot_lifts(master, progressBar):
         plt.plot(x, p(x), color='purple', linestyle='--')
 
         # save and close the figure
-        plt.savefig('plots/' + key + '.png')
-        plt.close()
+        plt.savefig('/Users/peterzorzonello/Development/Python/fitnessTracker/plots/' + key + '.png')
+        plt.clf()
         progressBar.setValue(progress)
         QApplication.processEvents()
         progress += numPerLift

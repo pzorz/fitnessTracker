@@ -18,7 +18,7 @@ class Fit(Ui_MainWindow):
     def processLifts(self):
         fname = QFileDialog.getOpenFileName(None,
                                             "Pick a CSV for the Lifting Data",
-                                            "",
+                                            "/Users/peterzorzonello/Development/Python/fitnessTracker/inputData/",
                                             "CSV (*.csv)")
         main.processWeightedLifts(fname[0], self.progressBar)
 
