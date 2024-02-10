@@ -6,7 +6,7 @@ from matplotlib import dates as mdates
 import numpy as np
 import pandas as pd
 import utils
-from PyQt6.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication, QMessageBox
 
 
 ##############################
@@ -192,6 +192,9 @@ def reportPrinter(reportType):
             file.write("MAX VOL REPORT\n\n")
             for key in maxVolReport.keys():
                 file.write(key + '\n\t\t\tMax Vol: ' + str(maxVolReport[key]) + ' lbs.\n\n')
+        msg = QMessageBox()
+        msg.setText("File: /Users/peterzorzonello/Development/Python/fitnessTracker/reports/maxVols.log created!")
+        x = msg.exec()
 
     elif reportType is utils.ReportType.mostRecent:
         with open("/Users/peterzorzonello/Development/Python/fitnessTracker/reports/mostRecent.log", "w") as file:
@@ -208,3 +211,6 @@ def reportPrinter(reportType):
                     else:
                         file.write('\t' + str(index['Sets']) +
                                    ' sets for ' + str(index['Reps']) + ' reps\n')
+        msg = QMessageBox()
+        msg.setText("File: /Users/peterzorzonello/Development/Python/fitnessTracker/reports/mostRecent.log created!")
+        x = msg.exec()
