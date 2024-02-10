@@ -139,11 +139,17 @@ def plot_lifts(master, progressBar):
         progress += numPerLift
 
 
-# this function takes in the body data and processes it into usable plot-able data. It also plots that data
-def process_body_data(bodyData):
-    # print(bodyData.to_string())
+# this function loads up body data and will plot it
+def process_body_data(fileName, progressBar):
+
+    progress = 0.0
+
+    progressBar.setValue(progress)
+    QApplication.processEvents()
+
+    bodyData = utils.read_csv(fileName)
+
     colNames = bodyData.columns.values
-    # print(colNames[1])
 
     dates = bodyData['Date'].values
     dateArray = [dateutil.parser.parse(x) for x in dates]
@@ -161,6 +167,9 @@ def process_body_data(bodyData):
 
     fig = plt.figure(figsize=(12, 10), dpi=100)
     fig.suptitle("Body Measurements")
+
+    progressStepper = 100/(numMeasures + 1)
+
     for k in range(1, numMeasures + 1):
         ax = fig.add_subplot(rows, cols, position[k - 1])
         ax.plot(x, bodyData[colNames[k]].values, marker='o')
@@ -170,8 +179,17 @@ def process_body_data(bodyData):
         ax.grid()
         utils.plot_trendline(ax, x, bodyData[colNames[k]].values)
         utils.date_formatter(x)
-    plt.savefig('plots/bodyData.png')
-    plt.close()
+
+        progress += progressStepper
+        progressBar.setValue(progress)
+        QApplication.processEvents()
+
+    plt.savefig('/Users/peterzorzonello/Development/Python/fitnessTracker/plots/bodyData.png')
+    plt.clf()
+
+    progress = 100
+    progressBar.setValue(progress)
+    QApplication.processEvents()
 
 
 # this procedure can print 1 of 2 types of reports
@@ -199,7 +217,5 @@ def reportPrinter(reportType):
                                    ' sets for ' + str(index['Reps']) + ' reps\n')
 
 
-if __name__ == '__main__':
-    bodyData = utils.read_csv('inputData/Measurements-Table 1.csv')
-    process_body_data(bodyData)
-    # reportPrinter(ReportType.mostRecent)
+
+# reportPrinter(ReportType.mostRecent)
