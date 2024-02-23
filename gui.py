@@ -1,6 +1,8 @@
 from fit import *
 import sys
-import main
+import liftData
+import reports
+import bodyData
 import utils
 
 from PyQt6.QtWidgets import QFileDialog
@@ -25,7 +27,7 @@ class Fit(Ui_MainWindow):
                                             "Pick a CSV for the Lifting Data",
                                             "/Users/peterzorzonello/Development/Python/fitnessTracker/inputData/",
                                             "CSV (*.csv)")
-        main.processWeightedLifts(fname[0], self.progressBar)
+        liftData.processWeightedLifts(fname[0], self.progressBar)
 
     # this function will open a file picker, get the file and then trigger the plot generator for the body measurement
     # data
@@ -34,17 +36,17 @@ class Fit(Ui_MainWindow):
                                             "Pick a CSV for the Lifting Data",
                                             "/Users/peterzorzonello/Development/Python/fitnessTracker/inputData/",
                                             "CSV (*.csv)")
-        main.process_body_data(fName[0], self.progressBar)
+        bodyData.process_body_data(fName[0], self.progressBar)
 
     # this function will run the max vol report
     def runMaxVolReport(self):
         self.progressBar.setValue(0.0)
-        main.reportPrinter(utils.ReportType.maxVols)
+        reports.reportPrinter(utils.ReportType.maxVols)
 
     # this function will run the most recent lift report
     def runRecentReport(self):
         self.progressBar.setValue(0.0)
-        main.reportPrinter(utils.ReportType.mostRecent)
+        reports.reportPrinter(utils.ReportType.mostRecent)
 
 
 # create the app to display

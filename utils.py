@@ -4,6 +4,11 @@ import matplotlib.dates as mdates
 import numpy as np
 from enum import Enum
 
+##############################
+# GLOBAL VARS
+##############################
+maxVolReport = {}
+mostRecentRpt = {}
 
 # this class is defining an enum for the types of reports we do
 class ReportType(Enum):
