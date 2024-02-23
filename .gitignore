@@ -4,3 +4,5 @@ inputData/Measurements-Table 1.csv
 *.log
 __pycache__/
 dist
+plots
+reports
