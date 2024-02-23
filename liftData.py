@@ -9,13 +9,6 @@ import utils
 from PyQt6.QtWidgets import QApplication, QMessageBox
 
 
-##############################
-# GLOBAL VARS
-##############################
-maxVolReport = {}
-mostRecentRpt = {}
-
-
 # this function will load in the CSV of lift data, process it to do data analysis on it to get
 # usable, plot-able information. It will then call a function to plot that data.
 def processWeightedLifts(fileName, progressBar):
@@ -27,8 +20,8 @@ def processWeightedLifts(fileName, progressBar):
     # create a dictionary, the keys will be the lifts. the tables will have date and volume information
     master = {}
     for lift in liftTypes:
-        maxVolReport[lift] = 0
-        mostRecentRpt[lift] = []
+        utils.maxVolReport[lift] = 0
+        utils.mostRecentRpt[lift] = []
 
         # get all the data for one kind of Lift
         new = data.loc[data['Lift'] == lift]
@@ -52,7 +45,7 @@ def processWeightedLifts(fileName, progressBar):
 
                 # if we are processing the data for the most recent date then save it for a report
                 if date == latestDate:
-                    mostRecentRpt[lift].append({'Weight': weight, 'Reps': reps, 'Sets': sets})
+                    utils.mostRecentRpt[lift].append({'Weight': weight, 'Reps': reps, 'Sets': sets})
 
                 # calculate the total vol for this entry
                 vol = (reps * sets * weight)
@@ -79,9 +72,9 @@ def processWeightedLifts(fileName, progressBar):
                     # we want to only save duration if this is a timed exercise since we can look at the keys later to
                     # decide how to print the report
                     if not issubclass(type(dur), str):
-                        mostRecentRpt[lift].append({'Reps': reps, 'Sets': sets})
+                        utils.mostRecentRpt[lift].append({'Reps': reps, 'Sets': sets})
                     else:
-                        mostRecentRpt[lift].append({'Reps': reps, 'Sets': sets, 'Dur': dur})
+                        utils.mostRecentRpt[lift].append({'Reps': reps, 'Sets': sets, 'Dur': dur})
 
         # if the data frame is not empty (ie if this is not a body weight exercise) then add the table to a dictionary
         if not df.empty:
@@ -89,8 +82,8 @@ def processWeightedLifts(fileName, progressBar):
 
             # for the max vol we need to find the date with the most weight
             for index, row in df.iterrows():
-                if row['Vol'] > maxVolReport[lift]:
-                    maxVolReport[lift] = row['Vol']
+                if row['Vol'] > utils.maxVolReport[lift]:
+                    utils.maxVolReport[lift] = row['Vol']
     plot_lifts(master, progressBar)
     progressBar.setValue(100)
     QApplication.processEvents()
@@ -130,87 +123,3 @@ def plot_lifts(master, progressBar):
         progressBar.setValue(progress)
         QApplication.processEvents()
         progress += numPerLift
-
-
-# this function loads up body data and will plot it
-def process_body_data(fileName, progressBar):
-
-    progress = 0.0
-
-    progressBar.setValue(progress)
-    QApplication.processEvents()
-
-    bodyData = utils.read_csv(fileName)
-
-    colNames = bodyData.columns.values
-
-    dates = bodyData['Date'].values
-    dateArray = [dateutil.parser.parse(x) for x in dates]
-    x = mdates.date2num(dateArray)
-
-    numMeasures = bodyData.shape[1] - 1
-    cols = 2
-
-    rows = numMeasures // cols
-
-    if numMeasures % cols != 0:
-        rows += 1
-
-    position = range(1, numMeasures + 1)
-
-    fig = plt.figure(figsize=(12, 10), dpi=100)
-    fig.suptitle("Body Measurements")
-
-    progressStepper = 100/(numMeasures + 1)
-
-    for k in range(1, numMeasures + 1):
-        ax = fig.add_subplot(rows, cols, position[k - 1])
-        ax.plot(x, bodyData[colNames[k]].values, marker='o')
-        ax.title.set_text(colNames[k])
-        ax.set_ylabel("Inches")
-        ax.set_xlabel("Date")
-        ax.grid()
-        utils.plot_trendline(ax, x, bodyData[colNames[k]].values)
-        utils.date_formatter(x)
-
-        progress += progressStepper
-        progressBar.setValue(progress)
-        QApplication.processEvents()
-
-    plt.savefig('/Users/peterzorzonello/Development/Python/fitnessTracker/plots/bodyData.png')
-    plt.clf()
-
-    progress = 100
-    progressBar.setValue(progress)
-    QApplication.processEvents()
-
-
-# this procedure can print 1 of 2 types of reports
-def reportPrinter(reportType):
-    if reportType is utils.ReportType.maxVols:
-        with open("/Users/peterzorzonello/Development/Python/fitnessTracker/reports/maxVols.log", "w") as file:
-            file.write("MAX VOL REPORT\n\n")
-            for key in maxVolReport.keys():
-                file.write(key + '\n\t\t\tMax Vol: ' + str(maxVolReport[key]) + ' lbs.\n\n')
-        msg = QMessageBox()
-        msg.setText("File: /Users/peterzorzonello/Development/Python/fitnessTracker/reports/maxVols.log created!")
-        x = msg.exec()
-
-    elif reportType is utils.ReportType.mostRecent:
-        with open("/Users/peterzorzonello/Development/Python/fitnessTracker/reports/mostRecent.log", "w") as file:
-            file.write("MOST RECENT REPORT\n")
-            for lift in mostRecentRpt.keys():
-                file.write('\n' + lift + '\n')
-                for index in mostRecentRpt[lift]:
-                    if 'Weight' in index:
-                        file.write('\t' + str(index['Weight']) + 'lbs. for ' + str(index['Sets']) +
-                                   ' sets for ' + str(index['Reps']) + ' reps\n')
-                    elif 'Dur' in index:
-                        file.write('\t' + str(index['Sets']) +
-                                   ' sets for ' + str(index['Dur']) + '\n')
-                    else:
-                        file.write('\t' + str(index['Sets']) +
-                                   ' sets for ' + str(index['Reps']) + ' reps\n')
-        msg = QMessageBox()
-        msg.setText("File: /Users/peterzorzonello/Development/Python/fitnessTracker/reports/mostRecent.log created!")
-        x = msg.exec()
