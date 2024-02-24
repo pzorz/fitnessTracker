@@ -5,9 +5,11 @@ import dateutil
 from PyQt6.QtWidgets import QApplication, QMessageBox, QFileDialog
 import os
 
+fileName = ''
 
 # this function loads up body data and will plot it
-def process_body_data(fileName, progressBar):
+def process_body_data(progressBar):
+
     current_directory = os.path.dirname(os.path.abspath(__file__))
     dir = QFileDialog.getExistingDirectory(None,
                                            "Pick a Directory to save the plots",

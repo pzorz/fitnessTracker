@@ -40,6 +40,7 @@ class Fit(Ui_MainWindow):
                                             current_directory,
                                             "CSV (*.csv)")
         self.bodyDataLabel.setText(fname[0])
+        bodyData.fileName = fname[0]
 
     # this function will open a file picker, get the file and then trigger the plot generator for the lift data
     def processLifts(self):
@@ -48,20 +49,16 @@ class Fit(Ui_MainWindow):
     # this function will open a file picker, get the file and then trigger the plot generator for the body measurement
     # data
     def processBodyData(self):
-        fName = QFileDialog.getOpenFileName(None,
-                                            "Pick a CSV for the Lifting Data",
-                                            current_directory,
-                                            "CSV (*.csv)")
-        bodyData.process_body_data(fName[0], self.progressBar)
+        bodyData.process_body_data(self.progressBar)
 
     # this function will run the max vol report
     def runMaxVolReport(self):
-        self.progressBar.setValue(0.0)
+        self.progressBar.setValue(0)
         reports.reportPrinter(utils.ReportType.maxVols)
 
     # this function will run the most recent lift report
     def runRecentReport(self):
-        self.progressBar.setValue(0.0)
+        self.progressBar.setValue(0)
         reports.reportPrinter(utils.ReportType.mostRecent)
 
 

@@ -20,15 +20,16 @@ def reportPrinter(reportType):
             sortedKeys = list(utils.maxVolReport.keys())
             sortedKeys.sort()
 
-            with open(fileName, "w") as file:
+            with open(fileName[0], "w") as file:
                 file.write("MAX VOL REPORT\n\n")
                 for key in sortedKeys:
                     file.write(key + '\n\t\t\tMax Vol: ' + str(utils.maxVolReport[key]) + ' lbs.\n\n')
             msg = QMessageBox()
-            msg.setText("File: /Users/peterzorzonello/Development/Python/fitnessTracker/reports/maxVols.log created!")
+            msg.setText("File: " + fileName[0] + " created!")
             x = msg.exec()
 
-        except:
+        except Exception as e:
+            print(e)
             msg = QMessageBox()
             msg.setText("Could not generate maxVols report!")
             msg.setIcon(QMessageBox.Icon.Critical)
@@ -41,7 +42,7 @@ def reportPrinter(reportType):
             sortedKeys = list(utils.mostRecentRpt.keys())
             sortedKeys.sort()
 
-            with open(fileName, "w") as file:
+            with open(fileName[0], "w") as file:
                 file.write("MOST RECENT REPORT\n")
                 for lift in sortedKeys:
                     file.write('\n' + lift + '\n')
@@ -56,9 +57,10 @@ def reportPrinter(reportType):
                             file.write('\t' + str(index['Sets']) +
                                        ' sets for ' + str(index['Reps']) + ' reps\n')
             msg = QMessageBox()
-            msg.setText("File: /Users/peterzorzonello/Development/Python/fitnessTracker/reports/mostRecent.log created!")
+            msg.setText("File: " + fileName[0] + " created!")
             x = msg.exec()
-        except:
+        except Exception as e:
+            print(e)
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Icon.Critical)
             msg.setText("Could not generate mostRecent report!")
