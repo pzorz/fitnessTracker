@@ -23,6 +23,22 @@ class Fit(Ui_MainWindow):
         self.bodyButton.clicked.connect(self.processBodyData)
         self.maxVolBtn.clicked.connect(self.runMaxVolReport)
         self.recentBtn.clicked.connect(self.runRecentReport)
+        self.bodyDataButton.clicked.connect(self.loadBodyData)
+        self.liftDataButton.clicked.connect(self.loadLiftData)
+
+    def loadLiftData(self):
+        fname = QFileDialog.getOpenFileName(None,
+                                            "Pick a CSV for the Lifting Data",
+                                            current_directory,
+                                            "CSV (*.csv)")
+        self.liftDataLabel.setText(fname[0])
+
+    def loadBodyData(self):
+        fname = QFileDialog.getOpenFileName(None,
+                                            "Pick a CSV for the Lifting Data",
+                                            current_directory,
+                                            "CSV (*.csv)")
+        self.bodyDataLabel.setText(fname[0])
 
     # this function will open a file picker, get the file and then trigger the plot generator for the lift data
     def processLifts(self):
