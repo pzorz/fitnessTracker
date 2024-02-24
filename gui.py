@@ -8,8 +8,6 @@ import os
 
 from PyQt6.QtWidgets import QFileDialog
 
-current_directory = ''
-
 
 # create a class that will be able to display the autogen code. We cannot edit that file so all callbacks will
 # need to be made in this class instead.
@@ -18,7 +16,7 @@ class Fit(Ui_MainWindow):
     def __init__(self, window):
         self.setupUi(window)
 
-        # callback for when the buttons on the GUI are pressed
+        # callbacks for when the buttons on the GUI are pressed
         self.liftsButton.clicked.connect(self.processLifts)
         self.bodyButton.clicked.connect(self.processBodyData)
         self.maxVolBtn.clicked.connect(self.runMaxVolReport)
@@ -26,28 +24,30 @@ class Fit(Ui_MainWindow):
         self.bodyDataButton.clicked.connect(self.loadBodyData)
         self.liftDataButton.clicked.connect(self.loadLiftData)
 
+    # display a file picker and then load in the lift data. Process the lift data so it us usable for running reports
+    # and printing plots
     def loadLiftData(self):
-        fname = QFileDialog.getOpenFileName(None,
-                                            "Pick a CSV for the Lifting Data",
-                                            current_directory,
-                                            "CSV (*.csv)")
-        self.liftDataLabel.setText(fname[0])
-        liftData.processWeightedLifts(fname[0])
+        f_name = QFileDialog.getOpenFileName(None,
+                                             "Pick a CSV for the Lifting Data",
+                                             utils.current_directory,
+                                             "CSV (*.csv)")
+        self.liftDataLabel.setText(f_name[0])
+        liftData.processWeightedLifts(f_name[0])
 
+    # set the file that we will use for any of the body measurement data
     def loadBodyData(self):
-        fname = QFileDialog.getOpenFileName(None,
-                                            "Pick a CSV for the Lifting Data",
-                                            current_directory,
-                                            "CSV (*.csv)")
-        self.bodyDataLabel.setText(fname[0])
-        bodyData.fileName = fname[0]
+        f_name = QFileDialog.getOpenFileName(None,
+                                             "Pick a CSV for the Lifting Data",
+                                             utils.current_directory,
+                                             "CSV (*.csv)")
+        self.bodyDataLabel.setText(f_name[0])
+        bodyData.fileName = f_name[0]
 
-    # this function will open a file picker, get the file and then trigger the plot generator for the lift data
+    # this function will generate plots for the lift data
     def processLifts(self):
         liftData.plot_lifts(self.progressBar)
 
-    # this function will open a file picker, get the file and then trigger the plot generator for the body measurement
-    # data
+    # this function will plot the body measurement data.
     def processBodyData(self):
         bodyData.process_body_data(self.progressBar)
 
@@ -62,7 +62,9 @@ class Fit(Ui_MainWindow):
         reports.reportPrinter(utils.ReportType.mostRecent)
 
 
-current_directory = os.path.dirname(os.path.abspath(__file__))
+# get the current directory we are running the GUI from. This is used for the file dialog default paths
+utils.current_directory = os.path.dirname(os.path.abspath(__file__))
+
 # create the app to display
 app = QtWidgets.QApplication(sys.argv)
 mainWin = QtWidgets.QMainWindow()

@@ -9,6 +9,7 @@ from enum import Enum
 ##############################
 maxVolReport = {}
 mostRecentRpt = {}
+current_directory = ''
 
 # this class is defining an enum for the types of reports we do
 class ReportType(Enum):
