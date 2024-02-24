@@ -32,6 +32,7 @@ class Fit(Ui_MainWindow):
                                             current_directory,
                                             "CSV (*.csv)")
         self.liftDataLabel.setText(fname[0])
+        liftData.processWeightedLifts(fname[0])
 
     def loadBodyData(self):
         fname = QFileDialog.getOpenFileName(None,
@@ -42,11 +43,7 @@ class Fit(Ui_MainWindow):
 
     # this function will open a file picker, get the file and then trigger the plot generator for the lift data
     def processLifts(self):
-        fname = QFileDialog.getOpenFileName(None,
-                                            "Pick a CSV for the Lifting Data",
-                                            current_directory,
-                                            "CSV (*.csv)")
-        liftData.processWeightedLifts(fname[0], self.progressBar)
+        liftData.plot_lifts(self.progressBar)
 
     # this function will open a file picker, get the file and then trigger the plot generator for the body measurement
     # data
