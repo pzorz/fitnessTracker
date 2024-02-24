@@ -1,17 +1,26 @@
 import utils
-from PyQt6.QtWidgets import QMessageBox
+from PyQt6.QtWidgets import QMessageBox, QFileDialog
+import os
 
 # this procedure can print 1 of 2 types of reports
 def reportPrinter(reportType):
+
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    fileName = QFileDialog.getSaveFileName(None,
+                                           "Name the report",
+                                           current_directory,
+                                           '*.log')
+
     if reportType is utils.ReportType.maxVols:
 
         try:
+
             if len(utils.maxVolReport) == 0:
                 raise
             sortedKeys = list(utils.maxVolReport.keys())
             sortedKeys.sort()
 
-            with open("/Users/peterzorzonello/Development/Python/fitnessTracker/reports/maxVols.log", "w") as file:
+            with open(fileName, "w") as file:
                 file.write("MAX VOL REPORT\n\n")
                 for key in sortedKeys:
                     file.write(key + '\n\t\t\tMax Vol: ' + str(utils.maxVolReport[key]) + ' lbs.\n\n')
@@ -32,7 +41,7 @@ def reportPrinter(reportType):
             sortedKeys = list(utils.mostRecentRpt.keys())
             sortedKeys.sort()
 
-            with open("/Users/peterzorzonello/Development/Python/fitnessTracker/reports/mostRecent.log", "w") as file:
+            with open(fileName, "w") as file:
                 file.write("MOST RECENT REPORT\n")
                 for lift in sortedKeys:
                     file.write('\n' + lift + '\n')

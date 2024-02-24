@@ -6,13 +6,20 @@ from matplotlib import dates as mdates
 import numpy as np
 import pandas as pd
 import utils
-from PyQt6.QtWidgets import QApplication, QMessageBox
-
+import os
+from PyQt6.QtWidgets import QApplication, QMessageBox, QFileDialog
 
 # this function will load in the CSV of lift data, process it to do data analysis on it to get
 # usable, plot-able information. It will then call a function to plot that data.
 def processWeightedLifts(fileName, progressBar):
+
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+
+    dir = QFileDialog.getExistingDirectory(None,
+                                           "Pick a Directory to save the plots",
+                                           current_directory)
     try:
+
         data = utils.read_csv(fileName)
 
         # create a list of all the different lifts being tracked
@@ -85,11 +92,12 @@ def processWeightedLifts(fileName, progressBar):
                 for index, row in df.iterrows():
                     if row['Vol'] > utils.maxVolReport[lift]:
                         utils.maxVolReport[lift] = row['Vol']
-        plot_lifts(master, progressBar)
+        plot_lifts(master, progressBar, dir)
         progressBar.setValue(100)
         QApplication.processEvents()
 
-    except:
+    except Exception as e:
+        print(e)
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Icon.Critical)
         msg.setText("Could not generate lift data plots!")
@@ -97,7 +105,7 @@ def processWeightedLifts(fileName, progressBar):
 
 
 # this function takes in the data that care about and plots it
-def plot_lifts(master, progressBar):
+def plot_lifts(master, progressBar, dir):
     num = len(master.keys())
     numPerLift = 100 / num
     progress = 0.0
@@ -125,7 +133,7 @@ def plot_lifts(master, progressBar):
         plt.plot(x, p(x), color='purple', linestyle='--')
 
         # save and close the figure
-        plt.savefig('/Users/peterzorzonello/Development/Python/fitnessTracker/plots/' + key + '.png')
+        plt.savefig(dir + '/' + key + '.png')
         plt.clf()
         progressBar.setValue(progress)
         QApplication.processEvents()

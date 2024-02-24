@@ -4,8 +4,11 @@ import liftData
 import reports
 import bodyData
 import utils
+import os
 
 from PyQt6.QtWidgets import QFileDialog
+
+current_directory = ''
 
 
 # create a class that will be able to display the autogen code. We cannot edit that file so all callbacks will
@@ -25,7 +28,7 @@ class Fit(Ui_MainWindow):
     def processLifts(self):
         fname = QFileDialog.getOpenFileName(None,
                                             "Pick a CSV for the Lifting Data",
-                                            "/Users/peterzorzonello/Development/Python/fitnessTracker/inputData/",
+                                            current_directory,
                                             "CSV (*.csv)")
         liftData.processWeightedLifts(fname[0], self.progressBar)
 
@@ -34,7 +37,7 @@ class Fit(Ui_MainWindow):
     def processBodyData(self):
         fName = QFileDialog.getOpenFileName(None,
                                             "Pick a CSV for the Lifting Data",
-                                            "/Users/peterzorzonello/Development/Python/fitnessTracker/inputData/",
+                                            current_directory,
                                             "CSV (*.csv)")
         bodyData.process_body_data(fName[0], self.progressBar)
 
@@ -49,6 +52,7 @@ class Fit(Ui_MainWindow):
         reports.reportPrinter(utils.ReportType.mostRecent)
 
 
+current_directory = os.path.dirname(os.path.abspath(__file__))
 # create the app to display
 app = QtWidgets.QApplication(sys.argv)
 mainWin = QtWidgets.QMainWindow()
