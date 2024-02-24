@@ -2,10 +2,16 @@ from matplotlib import pyplot as plt
 from matplotlib import dates as mdates
 import utils
 import dateutil
-from PyQt6.QtWidgets import QApplication, QMessageBox
+from PyQt6.QtWidgets import QApplication, QMessageBox, QFileDialog
+import os
+
 
 # this function loads up body data and will plot it
 def process_body_data(fileName, progressBar):
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    dir = QFileDialog.getExistingDirectory(None,
+                                           "Pick a Directory to save the plots",
+                                           current_directory)
     try:
         progress = 0.0
 
@@ -33,7 +39,7 @@ def process_body_data(fileName, progressBar):
         fig = plt.figure(figsize=(12, 10), dpi=100)
         fig.suptitle("Body Measurements")
 
-        progressStepper = 100/(numMeasures + 1)
+        progressStepper = 100 / (numMeasures + 1)
 
         for k in range(1, numMeasures + 1):
             ax = fig.add_subplot(rows, cols, position[k - 1])
@@ -49,7 +55,7 @@ def process_body_data(fileName, progressBar):
             progressBar.setValue(progress)
             QApplication.processEvents()
 
-        plt.savefig('/Users/peterzorzonello/Development/Python/fitnessTracker/plots/bodyData.png')
+        plt.savefig(dir + '/bodyData.png')
         plt.clf()
 
         progress = 100
