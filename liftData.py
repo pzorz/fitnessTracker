@@ -51,7 +51,7 @@ def processWeightedLifts(fileName):
 
                     # if we are processing the data for the most recent date then save it for a report
                     if date == latestDate:
-                        utils.mostRecentRpt[lift].append({'Weight': weight, 'Reps': reps, 'Sets': sets})
+                        utils.mostRecentRpt[lift].append({'Weight': weight, 'Reps': reps, 'Sets': sets, 'Date': date})
 
                     # calculate the total vol for this entry
                     vol = (reps * sets * weight)
@@ -78,9 +78,9 @@ def processWeightedLifts(fileName):
                         # we want to only save duration if this is a timed exercise since we can look at the keys later to
                         # decide how to print the report
                         if not issubclass(type(dur), str):
-                            utils.mostRecentRpt[lift].append({'Reps': reps, 'Sets': sets})
+                            utils.mostRecentRpt[lift].append({'Reps': reps, 'Sets': sets, 'Date': date})
                         else:
-                            utils.mostRecentRpt[lift].append({'Reps': reps, 'Sets': sets, 'Dur': dur})
+                            utils.mostRecentRpt[lift].append({'Reps': reps, 'Sets': sets, 'Dur': dur, 'Date': date})
 
             # if the data frame is not empty (ie if this is not a body weight exercise) then add the table to a dictionary
             if not df.empty:
