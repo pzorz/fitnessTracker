@@ -49,13 +49,13 @@ def reportPrinter(reportType):
                     for index in utils.mostRecentRpt[lift]:
                         if 'Weight' in index:
                             file.write('\t' + str(index['Weight']) + 'lbs. for ' + str(index['Sets']) +
-                                       ' sets for ' + str(index['Reps']) + ' reps\n')
+                                       ' sets for ' + str(index['Reps']) + ' reps - ' + str(index['Date']) + '\n')
                         elif 'Dur' in index:
                             file.write('\t' + str(index['Sets']) +
-                                       ' sets for ' + str(index['Dur']) + '\n')
+                                       ' sets for ' + str(index['Dur']) + ' - ' + str(index['Date']) + '\n')
                         else:
                             file.write('\t' + str(index['Sets']) +
-                                       ' sets for ' + str(index['Reps']) + ' reps\n')
+                                       ' sets for ' + str(index['Reps']) + ' reps - ' + str(index['Date']) + '\n')
             msg = QMessageBox()
             msg.setText("File: " + fileName[0] + " created!")
             x = msg.exec()
